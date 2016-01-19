@@ -34,13 +34,16 @@ Usage:
   devtool [entry] [opts]
 
 Options:
-  --watch, -w     enable file watching (for development)
-  --quit, -q      quit application on fatal errors
-  --console, -c   redirect console logs to terminal
-  --index, -i     specify a different index.html file
-  --poll, -p      enable polling when --watch is given
-  --show, -s      show the browser window (default false)
-  --headless, -h  do not open the DevTools window
+  --watch, -w             enable file watching (for development)
+  --quit, -q              quit application on fatal errors
+  --console, -c           redirect console logs to terminal
+  --index, -i             specify a different index.html file
+  --poll, -p              enable polling when --watch is given
+  --show, -s              show the browser window (default false)
+  --headless, -h          do not open the DevTools window
+  --browser-field, --bf   resolve using "browser" field
+  
+                  
 ```
 
 Examples:
@@ -57,6 +60,8 @@ devtool
 ```
 
 You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
+
+The `--browser-field` makes the `require()` statements respect the [package.json `"browser"` field](https://gist.github.com/defunctzombie/4339901).
 
 ## Use Cases
 
@@ -108,10 +113,12 @@ devtool
 
 You can also mix Node modules with browser APIs, such as Canvas and WebGL. See [example/streetview.js](./example/streetview.js) and the respective script in [package.json](./package.json), which grabs a StreetView panorama with some [Google Client APIs](https://developers.google.com/discovery/libraries?hl=en) and writes the PNG image to `process.stdout`.
 
+For this, you may want to use the `--bf` or `--browser-field` flag so that modules like [nets](http://npmjs.com/package/nets) will use Web APIs where possible.
+
 Example:
 
 ```sh
-devtool street.js --index street.html --quit > street.png
+devtool street.js --index street.html --quit --bf > street.png
 ```
 
 Result:
@@ -151,7 +158,6 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 This project is experimental and has not been tested on a wide range of applications or Node/OS environments. If you want to help, please open an issue or submit a PR. Some outstanding areas to explore:
 
 - Adding a `--timeout` option to auto-close after X seconds
-- Supporting `"browser"` field in `package.json`
 - Supporting `process.stdin` and piping
 - Improving syntax error handling, e.g. adding it to Sources panel
 - Exposing an API for programmatic usage
