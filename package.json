@@ -32,8 +32,7 @@
     "faucet": "0.0.1",
     "google-panorama-by-location": "^4.1.1",
     "google-panorama-equirectangular": "^1.2.0",
-    "tape": "^4.4.0",
-    "xhr-request": "^1.0.1"
+    "tape": "^4.4.0"
   },
   "scripts": {
     "test": "node test/index.js | faucet",
