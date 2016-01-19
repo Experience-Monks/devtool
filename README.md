@@ -15,6 +15,8 @@ The recording below shows setting breakpoints within an HTTP server.
 
 ![movie](http://i.imgur.com/V4RQSZ2.gif)
 
+> *Note:* This tool is still in early stages. So far it has only been tested on a couple of OSX machines. :)
+
 ## Install
 
 Install globally with `npm`.
