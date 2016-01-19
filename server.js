@@ -8,9 +8,10 @@ var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
 var argv = require('minimist')(process.argv.slice(2), {
-  boolean: [ 'console', 'quit', 'poll', 'show' ],
+  boolean: [ 'console', 'quit', 'poll', 'show', 'headless' ],
   string: [ 'index' ],
   alias: {
+    headless: 'h',
     watch: 'w',
     quit: 'q',
     console: 'c',
@@ -27,10 +28,6 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 global.__shouldElectronQuitOnError = true; // true until app starts
 global.__electronEntryFile = argv._[0];
 global.__electronConsoleHook = argv.console;
-if (!global.__electronEntryFile) {
-  console.error('No entry file specified! Usage:\n  devtool index.js');
-  process.exit(1);
-}
 
 var exitWithCode1 = false;
 process.on('uncaughtException', function (err) {
@@ -43,7 +40,9 @@ process.on('uncaughtException', function (err) {
 
 var cwd = process.cwd();
 var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
+var customHtml = false; // if we should watch it as well
 if (argv.index) {
+  customHtml = true;
   htmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
 }
 var htmlData = fs.readFileSync(htmlFile);
@@ -61,13 +60,22 @@ app.on('quit', function () {
 });
 
 app.on('ready', function () {
-  fs.stat(global.__electronEntryFile, function (err, stat) {
-    if (err) return fatal(err);
-    if (!stat.isFile()) return fatal('Given entry is not a file! Usage:\n  devtool index.js');
-  });
+  // bail on invalid input
+  if (global.__electronEntryFile) {
+    var filename = global.__electronEntryFile;
+    if (!path.extname(filename)) {
+      filename += '.js'; // TODO: should support full require.resolve
+    }
+    fs.stat(filename, function (err, stat) {
+      if (err) return fatal(err);
+      if (!stat.isFile()) return fatal('Given entry is not a file! Usage:\n  devtool index.js');
+    });
+  }
 
   var mainIndexURL = 'file://' + __dirname + '/index.html';
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
+    // We can't just spin up a local server for this, see here:
+    // https://github.com/atom/electron/issues/2414
     if (request.url === mainIndexURL) {
       callback({
         data: htmlData,
@@ -93,6 +101,10 @@ app.on('ready', function () {
       return typeof f === 'string';
     });
     if (globs.length === 0) globs = [ '**/*.{js,json}' ];
+    if (customHtml && globs.indexOf(htmlFile) === -1) {
+      // also watch the specified --index HTML file
+      globs.push(htmlFile);
+    }
     watcher = createWatch(globs, argv);
     watcher.on('change', function (file) {
       mainWindow.reload();
@@ -105,13 +117,16 @@ app.on('ready', function () {
   });
 
   var webContents = mainWindow.webContents;
+  webContents.on('dom-ready', function () {
+    webContents.send('dom-ready');
+  });
+
   webContents.once('did-finish-load', function () {
     global.__shouldElectronQuitOnError = argv.quit;
-    mainWindow.openDevTools();
+    if (!argv.headless) webContents.openDevTools();
   });
 
   mainWindow.loadURL(mainIndexURL);
-
   mainWindow.on('closed', function () {
     mainWindow = null;
   });

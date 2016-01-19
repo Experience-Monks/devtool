@@ -1,6 +1,6 @@
 {
   "name": "devtool",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "runs Node.js programs through Chromium DevTools",
   "main": "index.js",
   "license": "MIT",
@@ -18,14 +18,27 @@
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
     "serializerr": "^1.0.2",
+    "simple-get": "^1.4.3",
     "strip-bom": "^2.0.0",
     "syntax-error": "^1.1.4"
   },
   "devDependencies": {
-    "browserify": "^13.0.0"
+    "awesome-streetview": "^1.4.2",
+    "browserify": "^13.0.0",
+    "concat-stream": "^1.5.1",
+    "domready": "^1.0.8",
+    "electron-canvas-to-buffer": "^1.0.3",
+    "faucet": "0.0.1",
+    "google-panorama-by-location": "^4.1.1",
+    "google-panorama-equirectangular": "^1.2.0",
+    "simple-get": "^1.4.3",
+    "tape": "^4.4.0"
   },
   "scripts": {
-    "test": "electron server.js"
+    "test": "node test/index.js | faucet",
+    "http": "./bin/index.js example/http -w",
+    "simple-get": "./bin/index.js example/simple-get.js -qch",
+    "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q > example/streetview.png"
   },
   "keywords": [],
   "repository": {
