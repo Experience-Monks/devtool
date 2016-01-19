@@ -118,6 +118,10 @@ Result:
 
 See the [example/](./example/) folder for more ideas, and the [package.json](./package.json) scripts which run them.
 
+- [example/es2015.js](./example/es2015.js) - ES2015 transpiling
+- [example/geolocate.js](./example/geolocate.js) - prints current latitude,longitude to `stdout`
+- [example/http.js](./example/http.js) - a simple Node.js server that you can throw break points into
+
 ## Features
 
 This is built on [Electron](https://github.com/atom/electron/), so it includes the Console, Profile, Debugger, etc. It also includes some additional features on top of Electron:
