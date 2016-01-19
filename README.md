@@ -29,7 +29,7 @@ npm install devtool -g
 
 Run the command to open a new DevTools window.
 
-```sh
+```txt
 Usage:
   devtool [entry] [opts]
 
