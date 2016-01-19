@@ -114,7 +114,7 @@ Result:
 
 ### Other Examples
 
-See the [examples/](./examples/) folder for more ideas, and the [package.json](./package.json) scripts which run them.
+See the [example/](./example/) folder for more ideas, and the [package.json](./package.json) scripts which run them.
 
 ## Features
 
