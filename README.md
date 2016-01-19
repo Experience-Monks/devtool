@@ -15,7 +15,17 @@ The recording below shows setting breakpoints within an HTTP server.
 
 ![movie](http://i.imgur.com/V4RQSZ2.gif)
 
+## Install
+
+Install globally with `npm`.
+
+```sh
+npm install devtool -g
+```
+
 ## Usage
+
+Run the command to open a new DevTools window.
 
 ```sh
 Usage:
