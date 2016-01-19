@@ -56,6 +56,8 @@ devtool main.js -q -c > foo.txt
 devtool
 ```
 
+You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
+
 ## Use Cases
 
 ### Debugging / Profiling
@@ -89,6 +91,8 @@ Some screenshots of the profiling and debugging experience:
 ![profile](http://i.imgur.com/vSu7Lcz.png)
 
 ![debug](http://i.imgur.com/O4DZHyv.png)
+
+> *Note:* Performance may vary between Node and Electron, so always take the results with a grain of salt!
 
 ### REPL
 
@@ -137,14 +141,14 @@ This is built on [Electron](https://github.com/atom/electron/), so it includes t
 
 Since this is running in Electron and Chromium, instead of Node, you might run into some oddities and gotchas. 
 
-- When the DevTools first open, you may need to reload the browser for source maps and debugging to work correctly (related: [electron#2379](https://github.com/atom/electron/issues/2379))
+- When the DevTools window first opens, you may need to reload the browser for source maps and debugging to work correctly (related: [electron#2379](https://github.com/atom/electron/issues/2379))
 - `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
 - You must call `window.close()` to stop the process; apps will not quit on their own
 - Certain modules that use native addons may not work within Electron
 
 ## Roadmap / Contributing
 
-This project is experimental and has not been tested on a wide range of applications. If you want to help, please open an issue or submit a PR. Some outstanding areas to explore:
+This project is experimental and has not been tested on a wide range of applications or Node/OS environments. If you want to help, please open an issue or submit a PR. Some outstanding areas to explore:
 
 - Adding a `--timeout` option to auto-close after X seconds
 - Supporting `"browser"` field in `package.json`
