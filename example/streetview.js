@@ -1,6 +1,8 @@
 /*
   Using Google Client Libraries with Node.js APIs.
   This demo uses a custom `streetview.html` index.
+  This uses the --browser-field flag to resolve
+  our require flags.
 
     npm run streetview
  */
@@ -8,7 +10,7 @@
 var awesome = require('awesome-streetview');
 var render = require('google-panorama-equirectangular');
 var toBuffer = require('electron-canvas-to-buffer');
-var googlePano = require('google-panorama-by-location/browser');
+var googlePano = require('google-panorama-by-location');
 
 googlePano(awesome(), function (err, result) {
   if (err) throw err;

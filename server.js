@@ -8,10 +8,14 @@ var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
 var argv = require('minimist')(process.argv.slice(2), {
-  boolean: [ 'console', 'quit', 'poll', 'show', 'headless' ],
+  boolean: [
+    'console', 'quit', 'poll', 'show', 'headless',
+    'browser-field'
+  ],
   string: [ 'index' ],
   alias: {
     headless: 'h',
+    'browser-field': [ 'bf', 'browserField' ],
     watch: 'w',
     quit: 'q',
     console: 'c',
@@ -28,6 +32,7 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 global.__shouldElectronQuitOnError = true; // true until app starts
 global.__electronEntryFile = argv._[0];
 global.__electronConsoleHook = argv.console;
+global.__electronBrowserResolve = argv.browserField;
 
 var exitWithCode1 = false;
 process.on('uncaughtException', function (err) {
