@@ -1,0 +1,42 @@
+{
+  "name": "devtool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl"
+  },
+  "dependencies": {
+    "chokidar": "^1.4.2",
+    "combine-source-map": "^0.7.1",
+    "console-redirect": "^1.0.0",
+    "electron-prebuilt": "^0.35.6",
+    "events": "^1.1.0",
+    "minimist": "^1.2.0",
+    "object-assign": "^4.0.1",
+    "serializerr": "^1.0.2",
+    "strip-bom": "^2.0.0",
+    "syntax-error": "^1.1.4"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  },
+  "scripts": {
+    "test": "electron server.js"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Jam3/devtool.git"
+  },
+  "homepage": "https://github.com/Jam3/devtool",
+  "bugs": {
+    "url": "https://github.com/Jam3/devtool/issues"
+  },
+  "bin": {
+    "devtool": "./bin/index.js"
+  }
+}
