@@ -2,7 +2,12 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Runs Node.js inside Chromium DevTools (using [Electron](https://github.com/atom/electron/)).
+Runs Node.js programs inside Chrome DevTools (using [Electron](https://github.com/atom/electron/)).
+
+```sh
+# open a Node program in Chrome's DevTools
+devtool src/index.js
+```
 
 This allows you to profile, debug and develop typical Node.js programs with some of the features of Chrome DevTools.
 
@@ -116,6 +121,8 @@ This is built on [Electron](https://github.com/atom/electron/), so it includes t
 
 Since this is running in Electron and Chromium, instead of Node, you might run into some oddities and gotchas. For example, `window` is present, which some modules may use to detect Node/Browser environments.
 
+Apps will not terminate automatically. Instead, you must call `window.close()` from your scripts to end the process.
+
 Some modules that use native addons may not work within Electron.
 
 ## Roadmap / Contributing
@@ -136,7 +143,7 @@ You can `git clone` and `npm install` this repo to start working from source.
 
 If you like this, you might also like [hihat](https://github.com/Jam3/hihat). It is very similar, but more focused on running and testing *browser* applications. Hihat uses [browserify](https://www.npmjs.com/package/browserify) to bundle everything into a single source file.
 
-In some ways, `devtool` might be seen as a spiritual successor to `hihat`. The architecture is cleaner and better suited for writing large Node/Electron applications.
+In some ways, `devtool` is a spiritual successor to `hihat`. The architecture is cleaner and better suited for large Node/Electron applications.
 
 ## License
 
