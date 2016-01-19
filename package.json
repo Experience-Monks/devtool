@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "awesome-streetview": "^1.4.2",
+    "babel-plugin-transform-es2015-template-literals": "^6.3.13",
+    "babel-register": "^6.4.3",
     "browserify": "^13.0.0",
     "electron-canvas-to-buffer": "^1.0.3",
     "faucet": "0.0.1",
@@ -34,6 +36,7 @@
   "scripts": {
     "test": "node test/index.js | faucet",
     "http": "./bin/index.js example/http -w",
+    "es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
     "browserify": "./bin/index.js example/browserify.js -qch",
     "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q > example/streetview.png"
   },

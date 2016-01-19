@@ -129,11 +129,12 @@ This is built on [Electron](https://github.com/atom/electron/), so it includes t
 
 ## Gotchas
 
-Since this is running in Electron and Chromium, instead of Node, you might run into some oddities and gotchas. For example, `window` is present, which some modules may use to detect Node/Browser environments.
+Since this is running in Electron and Chromium, instead of Node, you might run into some oddities and gotchas. 
 
-Apps will not terminate automatically. Instead, you must call `window.close()` from your scripts to end the process.
-
-Some modules that use native addons may not work within Electron.
+- When the DevTools first open, you may need to reload the browser for source maps and debugging to work correctly (related: [electron#2379](https://github.com/atom/electron/issues/2379))
+- `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
+- You must call `window.close()` to stop the process; apps will not quit on their own
+- Certain modules that use native addons may not work within Electron
 
 ## Roadmap / Contributing
 

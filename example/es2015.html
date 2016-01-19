@@ -1,0 +1,18 @@
+<!--
+  An example using the babel-register hook for ES2015 syntax.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>es2015</title>
+  <script type="text/javascript">
+  // We could register babel-preset-es2015 instead :)
+  require('babel-register')({
+    plugins: [ 'transform-es2015-template-literals' ]
+  });
+  </script>
+</head>
+<body>
+</body>
+</html>
