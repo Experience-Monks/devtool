@@ -36,6 +36,7 @@
   "scripts": {
     "test": "node test/index.js | faucet",
     "http": "./bin/index.js example/http -w",
+    "geolocate": "./bin/index.js example/geolocate.js -qch",
     "es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
     "browserify": "./bin/index.js example/browserify.js -qch",
     "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q > example/streetview.png"
