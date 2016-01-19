@@ -1,4 +1,9 @@
-// debugging an http server in DevTools!
+/*
+  Debugging an http server with devtool.
+
+    npm run http
+ */
+
 var http = require('http');
 
 var server = http.createServer(function (req, res) {

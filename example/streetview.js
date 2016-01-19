@@ -1,3 +1,10 @@
+/*
+  Using Google Client Libraries with Node.js APIs.
+  This demo uses a custom `streetview.html` index.
+
+    npm run streetview
+ */
+
 var awesome = require('awesome-streetview');
 var render = require('google-panorama-equirectangular');
 var toBuffer = require('electron-canvas-to-buffer');

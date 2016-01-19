@@ -1,4 +1,9 @@
-// An example profiling browserify source
+/*
+  Profiling/debugging browserify core.
+
+    npm run browserify
+ */
+
 var browserify = require('browserify');
 var path = require('path');
 
@@ -9,6 +14,7 @@ function run () {
       if (err) throw err;
       console.profileEnd('build');
       console.log('bundle size in bytes:', src.length);
+      if (process.env.NODE_ENV !== 'development') window.close();
     });
 }
 

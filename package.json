@@ -37,6 +37,7 @@
   "scripts": {
     "test": "node test/index.js | faucet",
     "http": "./bin/index.js example/http -w",
+    "browserify": "./bin/index.js example/browserify.js -qch",
     "simple-get": "./bin/index.js example/simple-get.js -qch",
     "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q > example/streetview.png"
   },
