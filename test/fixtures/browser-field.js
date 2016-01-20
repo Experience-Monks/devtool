@@ -1,0 +1,2 @@
+require('foo');
+window.close();

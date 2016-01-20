@@ -28,6 +28,8 @@
     "babel-plugin-transform-es2015-template-literals": "^6.3.13",
     "babel-register": "^6.4.3",
     "browserify": "^13.0.0",
+    "concat-stream": "^1.5.1",
+    "cross-spawn-async": "^2.1.6",
     "electron-canvas-to-buffer": "^1.0.3",
     "faucet": "0.0.1",
     "google-panorama-by-location": "^4.1.1",
