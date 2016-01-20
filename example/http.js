@@ -18,6 +18,7 @@ var server = http.createServer(function (req, res) {
   console.log('Listening on http://localhost:8080/');
 });
 
+// Before closing/reloading, close the server
 window.onbeforeunload = function () {
   server.close();
 };

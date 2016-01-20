@@ -143,6 +143,7 @@ This is built on [Electron](https://github.com/atom/electron/), so it includes t
 - Console redirection back to terminal (optional)
 - File watching for development and quit-on-error flags for unit testing (e.g. continuous integration)
 - Handles `process.exit` and error codes
+- Supports `"browser"` field resolution (optional)
 
 ## Gotchas
 
