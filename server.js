@@ -1,5 +1,6 @@
 var path = require('path');
 var fs = require('fs');
+var assign = require('object-assign');
 var createWatch = require('./lib/file-watch');
 
 var electron = require('electron');
@@ -100,13 +101,18 @@ app.on('ready', function () {
     if (err) fatal(err);
   });
 
-  mainWindow = new BrowserWindow({
+  // We can't just use show: false apparently
+  // https://github.com/Jam3/devtool/issues/2
+  var emptyWindow = { width: 0, height: 0, x: 0, y: 0 };
+  var bounds = argv.show ? undefined : emptyWindow;
+  var opts = assign({
     webPreferences: {
       preload: path.join(__dirname, 'lib', 'preload.js'),
       nodeIntegration: true
     },
-    show: argv.show
-  });
+    show: argv.show ? true : undefined
+  }, bounds);
+  mainWindow = new BrowserWindow(opts);
 
   if (argv.watch) {
     var globs = [].concat(argv.watch).filter(function (f) {
