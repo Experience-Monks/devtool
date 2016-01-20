@@ -1,3 +1,5 @@
+console.error('electron spawned');
+
 var path = require('path');
 var fs = require('fs');
 var createWatch = require('./lib/file-watch');
@@ -7,6 +9,7 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
+console.error('parsing args');
 var argv = require('minimist')(process.argv.slice(2), {
   '--': true,
   boolean: [
@@ -71,6 +74,8 @@ app.on('quit', function () {
   if (exitWithCode1) process.exit(1);
 });
 
+console.error('preparing...');
+
 app.on('ready', function () {
   // bail on invalid input
   if (global.__electronEntryFile) {
@@ -86,6 +91,7 @@ app.on('ready', function () {
 
   var mainIndexURL = 'file://' + __dirname + '/index.html';
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
+    console.error('intercepting', request.url);
     // We can't just spin up a local server for this, see here:
     // https://github.com/atom/electron/issues/2414
     if (request.url === mainIndexURL) {
@@ -130,10 +136,12 @@ app.on('ready', function () {
 
   var webContents = mainWindow.webContents;
   webContents.on('dom-ready', function () {
+    console.error('dom-ready');
     webContents.send('dom-ready');
   });
 
   webContents.once('did-finish-load', function () {
+    console.error('did-finish-load');
     global.__electronQuitOnError = argv.quit;
     if (!argv.headless) {
       webContents.openDevTools();
@@ -147,8 +155,10 @@ app.on('ready', function () {
     }
   });
 
+  console.error('loading', mainIndexURL);
   mainWindow.loadURL(mainIndexURL);
   mainWindow.on('closed', function () {
+    console.error('mainWindow closed');
     mainWindow = null;
   });
 
