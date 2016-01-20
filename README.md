@@ -55,6 +55,9 @@ devtool main.js -q -c > foo.txt
 
 # open a REPL window
 devtool
+
+# pipe content into process.stdin
+devtool writer.js < README.md
 ```
 
 You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
@@ -127,7 +130,7 @@ Result:
 
 See the [example/](./example/) folder for more ideas, and the [package.json](./package.json) scripts which run them.
 
-- [example/markdown.js](./example/markdown.js) - Renders a `.md` file with GitHub Flavored Markdown to a PNG image
+- [example/markdown.js](./example/markdown.js) - Pipes a `.md` file into `process.stdin`, then renders GitHub Flavored Markdown to a PNG image
 - [example/es2015.js](./example/es2015.js) - ES2015 transpiling
 - [example/geolocate.js](./example/geolocate.js) - prints current `[ latitude, longitude ]` to `stdout`
 - [example/http.js](./example/http.js) - a simple Node.js server that you can throw break points into
@@ -161,7 +164,6 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 This project is experimental and has not been tested on a wide range of applications or Node/OS environments. If you want to help, please open an issue or submit a PR. Some outstanding areas to explore:
 
 - Adding a `--timeout` option to auto-close after X seconds
-- Supporting `process.stdin` and piping
 - Improving syntax error handling, e.g. adding it to Sources panel
 - Exposing an API for programmatic usage
 - Adding unit tests
