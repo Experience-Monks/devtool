@@ -96,7 +96,8 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, 'lib', 'preload.js'),
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     },
     show: argv.show
   });
