@@ -42,8 +42,6 @@ Options:
   --show, -s              show the browser window (default false)
   --headless, -h          do not open the DevTools window
   --browser-field, --bf   resolve using "browser" field
-  
-                  
 ```
 
 Examples:
@@ -129,8 +127,9 @@ Result:
 
 See the [example/](./example/) folder for more ideas, and the [package.json](./package.json) scripts which run them.
 
+- [example/markdown.js](./example/markdown.js) - Renders a `.md` file with GitHub Flavored Markdown to a PNG image
 - [example/es2015.js](./example/es2015.js) - ES2015 transpiling
-- [example/geolocate.js](./example/geolocate.js) - prints current latitude,longitude to `stdout`
+- [example/geolocate.js](./example/geolocate.js) - prints current `[ latitude, longitude ]` to `stdout`
 - [example/http.js](./example/http.js) - a simple Node.js server that you can throw break points into
 
 ## Features
