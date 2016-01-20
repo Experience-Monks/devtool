@@ -4,4 +4,5 @@ node_modules
 .DS_Store
 bundle.js
 example/streetview.png
+example/markdown.png
 !test/fixtures/node_modules
