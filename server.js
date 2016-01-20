@@ -8,6 +8,7 @@ var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
 var argv = require('minimist')(process.argv.slice(2), {
+  '--': true,
   boolean: [
     'console', 'quit', 'poll', 'show', 'headless',
     'browser-field'
