@@ -65,7 +65,7 @@ devtool app.js --watch -- entry
 
 You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
 
-If `--` is given, anything after it will be used as the arguments for the app's `process.argv`. This way you can avoid sifting through `devtool` specific arguments.
+If `--` is given, anything after it will be used as the arguments for the app's `process.argv`. This way you can avoid polluting your program arguments with those specific to `devtool`.
 
 The `--browser-field` makes the `require()` statements respect the [package.json `"browser"` field](https://gist.github.com/defunctzombie/4339901).
 
@@ -130,6 +130,18 @@ devtool street.js --index street.html --quit --bf > street.png
 Result:
 
 ![street](http://i.imgur.com/GzqrTK2.png)
+
+### Grunt/Gulp
+
+To debug Grunt/Gulp and other commands, you will need to pass the JavaScript file that runs them. You should also include `--` to avoid any argument conflicts.
+
+```sh
+# same as "gulp watch"
+devtool node_modules/gulp/bin/gulp.js -c -- watch
+
+# same as "grunt"
+devtool node_modules/grunt-cli/bin/grunt -c --
+```
 
 ### Other Examples
 
