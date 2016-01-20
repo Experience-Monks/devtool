@@ -58,9 +58,14 @@ devtool
 
 # pipe content into process.stdin
 devtool writer.js < README.md
+
+# pass clean arg list to app.js
+devtool app.js --watch -- entry
 ```
 
 You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
+
+If `--` is given, anything after it will be used as the arguments for the app's `process.argv`. This way you can avoid sifting through `devtool` specific arguments.
 
 The `--browser-field` makes the `require()` statements respect the [package.json `"browser"` field](https://gist.github.com/defunctzombie/4339901).
 

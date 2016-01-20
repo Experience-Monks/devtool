@@ -6,10 +6,12 @@ var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
 setup('process.argv', 'argv.js', JSON.stringify([
+  path.resolve(__dirname, 'fixtures', 'argv.js'),
   '--foobar'
 ]), [ '--foobar' ]);
 
 setup('process.argv with full stop', 'argv.js', JSON.stringify([
+  path.resolve(__dirname, 'fixtures', 'argv.js'),
   'some', '--arg'
 ]), [ '--foobar', '--bar', '--', 'some', '--arg' ]);
 

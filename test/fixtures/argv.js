@@ -1,2 +1,2 @@
-process.stdout.write(JSON.stringify(process.argv.slice(2)));
+process.stdout.write(JSON.stringify(process.argv.slice(1)));
 window.close();
