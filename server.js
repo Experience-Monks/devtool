@@ -58,8 +58,6 @@ if (argv.index) {
 }
 var htmlData = fs.readFileSync(htmlFile);
 
-// var isTTY = process.stdin.isTTY;
-
 var watcher = null;
 var mainWindow = null;
 app.on('window-all-closed', function () {

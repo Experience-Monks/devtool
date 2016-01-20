@@ -38,6 +38,7 @@
     "google-panorama-equirectangular": "^1.2.0",
     "insert-css": "^0.2.0",
     "marked": "^0.3.5",
+    "semistandard": "^7.0.5",
     "tape": "^4.4.0"
   },
   "scripts": {
@@ -48,6 +49,11 @@
     "es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
     "browserify": "./bin/index.js example/browserify.js -qch",
     "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q --bf > example/streetview.png"
+  },
+  "semistandard": {
+    "ignore": [
+      "test/fixtures/*.js"
+    ]
   },
   "keywords": [],
   "repository": {
