@@ -7,7 +7,7 @@
   - Shows the browser window and captures the screen
   - Writes PNG to process.stdout
 
-    npm run markdown
+    npm run example:markdown
  */
 
 var marked = require('marked');

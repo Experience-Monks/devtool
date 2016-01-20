@@ -4,7 +4,7 @@
   This uses the --browser-field flag to resolve
   our require flags.
 
-    npm run streetview
+    npm run example:streetview
  */
 
 var awesome = require('awesome-streetview');

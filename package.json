@@ -42,13 +42,14 @@
     "tape": "^4.4.0"
   },
   "scripts": {
-    "test": "node test/index.js | faucet",
-    "markdown": "./bin/index.js example/markdown.js -hqc < README.md > example/markdown.png",
-    "http": "./bin/index.js example/http -w",
-    "geolocate": "./bin/index.js example/geolocate.js -qch",
-    "es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
-    "browserify": "./bin/index.js example/browserify.js -qch",
-    "streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q --bf > example/streetview.png"
+    "test": "npm run lint && node test/index.js | faucet",
+    "lint": "semistandard",
+    "example:markdown": "./bin/index.js example/markdown.js -hqc < README.md > example/markdown.png",
+    "example:http": "./bin/index.js example/http -w",
+    "example:geolocate": "./bin/index.js example/geolocate.js -qch",
+    "example:es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
+    "example:browserify": "./bin/index.js example/browserify.js -qch",
+    "example:streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q --bf > example/streetview.png"
   },
   "semistandard": {
     "ignore": [

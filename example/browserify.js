@@ -1,7 +1,7 @@
 /*
   Profiling/debugging browserify core.
 
-    npm run browserify
+    npm run example:browserify
  */
 
 var browserify = require('browserify');

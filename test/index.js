@@ -10,6 +10,19 @@ setup('process.argv', 'argv.js', JSON.stringify([
   '--foobar'
 ]), [ '--foobar' ]);
 
+test('process.stdin', function (t) {
+  t.plan(1);
+  t.timeoutAfter(4000);
+
+  var entry = [ path.resolve(__dirname, 'fixtures', 'stdin.js') ];
+  var proc = spawn(cmd, entry.concat([ '-q', '-h' ]));
+  proc.stdout.pipe(concat(function (body) {
+    t.equal(body.toString(), 'beep boop\n');
+  }));
+  proc.stdin.write('beep boop\n');
+  proc.stdin.end();
+});
+
 setup('process.cwd()', 'cwd.js', process.cwd(), [ ]);
 setup('require.main', 'main.js', 'is main');
 setup('browser field resolution enabled', 'browser-field.js', 'browser', [ '--browser-field' ]);

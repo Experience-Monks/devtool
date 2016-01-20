@@ -1,7 +1,7 @@
 /*
   A command-line tool that prints your latitude,longitude.
 
-    npm run geolocate
+    npm run example:geolocate
  */
 
 if ('geolocation' in navigator) {

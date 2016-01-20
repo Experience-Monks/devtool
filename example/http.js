@@ -1,7 +1,7 @@
 /*
   Debugging an http server with devtool.
 
-    npm run http
+    npm run example:http
  */
 
 var http = require('http');

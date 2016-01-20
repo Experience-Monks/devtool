@@ -1,7 +1,7 @@
 /*
   An example using the babel-register hook for ES2015 syntax.
 
-    npm run es2015
+    npm run example:es2015
 */
 
 const name = 'John Smith';
