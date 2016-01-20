@@ -134,7 +134,9 @@ See the [example/](./example/) folder for more ideas, and the [package.json](./p
 
 ## Features
 
-This is built on [Electron](https://github.com/atom/electron/), so it includes the Console, Profile, Debugger, etc. It also includes some additional features on top of Electron:
+This is built on [Electron](https://github.com/atom/electron/), so it includes the Console, Profile, Debugger, etc.
+
+It also includes some additional features on top of Electron:
 
 - Improved error handling (more detailed syntax errors in console)
 - Improved source map support for required files
@@ -166,12 +168,30 @@ This project is experimental and has not been tested on a wide range of applicat
 
 You can `git clone` and `npm install` this repo to start working from source.
 
-## See Also
-#### `hihat`
+## See Also / Comparisons
+### `hihat`
 
-If you like this, you might also like [hihat](https://github.com/Jam3/hihat). It is very similar, but more focused on running and testing *browser* applications. Hihat uses [browserify](https://www.npmjs.com/package/browserify) to bundle everything into a single source file.
+If you like this, you might also like [hihat](https://github.com/Jam3/hihat). It is very similar, but more focused on running and testing *browser* applications. Hihat uses [browserify](https://www.npmjs.com/package/browserify) to bundle everything into a *single* source file, and uses [watchify](https://www.npmjs.com/package/watchify) for incremental file changes.
 
 In some ways, `devtool` is a spiritual successor to `hihat`. The architecture is cleaner and better suited for large Node/Electron applications.
+
+### `iron-node`
+
+Another Electron-based debugger is [iron-node](https://github.com/s-a/iron-node). `iron-node` includes better support for native addons and a complex graphical interface that shows your `package.json` and `README.md`.
+
+Whereas `devtool` is more focused on the command-line, Unix-style piping/redirection, and Electron/Browser APIs for interesting use-cases (e.g. [Google StreetView](#browser-apis)).
+
+`devtool` shims various features to behave more like Node.js (like `require.main` and `process.exit`) and overrides the internal `require` mechanism for source maps, improved error handling and `"browser"` field resolution. 
+
+### `node-inspector`
+
+You may also like [node-inspector](https://github.com/node-inspector/node-inspector), which uses remote debugging instead of building on top of Electron.
+
+This means your code will run in a true Node environment, without any `window` or other Browser/Electron APIs that may pollute scope and cause problems with certain modules. It has stronger support for large Node.js applications (i.e. native addons) and more control over the DevTools instance (i.e. can inject breakpoints and support Network requests).
+
+However, since it re-implements much of the debugging experience, it may feel clunky and fragile compared to developing inside the latest Chrome DevTools (e.g. `console.profile()` does not exist).
+
+Whereas `devtool` aims to make the experience feel more familiar to those coming from Chrome DevTools, and also promotes other features like Browser/Electron APIs.
 
 ## License
 
