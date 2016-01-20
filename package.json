@@ -32,12 +32,17 @@
     "cross-spawn-async": "^2.1.6",
     "electron-canvas-to-buffer": "^1.0.3",
     "faucet": "0.0.1",
+    "get-stdin": "^5.0.1",
+    "github-markdown-css": "^2.2.0",
     "google-panorama-by-location": "^4.1.1",
     "google-panorama-equirectangular": "^1.2.0",
+    "insert-css": "^0.2.0",
+    "marked": "^0.3.5",
     "tape": "^4.4.0"
   },
   "scripts": {
     "test": "node test/index.js | faucet",
+    "markdown": "./bin/index.js example/markdown.js -hqc < README.md > example/markdown.png",
     "http": "./bin/index.js example/http -w",
     "geolocate": "./bin/index.js example/geolocate.js -qch",
     "es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",

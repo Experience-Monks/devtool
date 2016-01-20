@@ -29,15 +29,21 @@ app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('v', 0);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-global.__shouldElectronQuitOnError = true; // true until app starts
+process.stdin.pause();
+global.__electronQuitOnError = true; // true until app starts
 global.__electronEntryFile = argv._[0];
 global.__electronConsoleHook = argv.console;
 global.__electronBrowserResolve = argv.browserField;
+global.__electronProcessTTY = {
+  stdin: process.stdin.isTTY,
+  stdout: process.stdout.isTTY,
+  stderr: process.stderr.isTTY
+};
 
 var exitWithCode1 = false;
 process.on('uncaughtException', function (err) {
   console.error(err);
-  if (global.__shouldElectronQuitOnError) {
+  if (global.__electronQuitOnError) {
     exitWithCode1 = true;
     app.quit();
   }
@@ -51,6 +57,8 @@ if (argv.index) {
   htmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
 }
 var htmlData = fs.readFileSync(htmlFile);
+
+// var isTTY = process.stdin.isTTY;
 
 var watcher = null;
 var mainWindow = null;
@@ -128,8 +136,17 @@ app.on('ready', function () {
   });
 
   webContents.once('did-finish-load', function () {
-    global.__shouldElectronQuitOnError = argv.quit;
-    if (!argv.headless) webContents.openDevTools();
+    global.__electronQuitOnError = argv.quit;
+    if (!argv.headless) {
+      webContents.openDevTools();
+      webContents.once('devtools-opened', sendStdin);
+    } else {
+      // TODO: Find out why this timeout is necessary.
+      // stdin is not triggering if sent immediately
+      setTimeout(function () {
+        sendStdin();
+      }, 500);
+    }
   });
 
   mainWindow.loadURL(mainIndexURL);
@@ -137,16 +154,27 @@ app.on('ready', function () {
     mainWindow = null;
   });
 
+  function sendStdin () {
+    process.stdin
+      .on('data', function (data) {
+        mainWindow.send('stdin', data);
+      })
+      .on('end', function () {
+        mainWindow.send('stdin', null);
+      })
+      .resume();
+  }
+
   function bail (err) {
     console.error(err.stack ? err.stack : err);
-    if (global.__shouldElectronQuitOnError) {
+    if (global.__electronQuitOnError) {
       exitWithCode1 = true;
       if (mainWindow) mainWindow.close();
     }
   }
 
   function fatal (err) {
-    global.__shouldElectronQuitOnError = true;
+    global.__electronQuitOnError = true;
     bail(err);
   }
 });
