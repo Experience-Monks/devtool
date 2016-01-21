@@ -173,6 +173,7 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 - When the DevTools window first opens, you may need to reload the browser for source maps and debugging to work correctly (related: [electron#2379](https://github.com/atom/electron/issues/2379))
 - `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
 - You must call `window.close()` to stop the process; apps will not quit on their own
+  - You should use `window.close()` instead of `process.exit(0)` to ensure all outputs drain before exiting
 - Certain modules that use native addons may not work within Electron
 - Some applications may need to show either the window (with `--show`) or the DevTool (which is shown by default) in order to render Canvas/DOM/HTML/etc to a buffer
 
