@@ -122,7 +122,8 @@ app.on('ready', function () {
   var opts = assign({
     webPreferences: {
       preload: path.join(__dirname, 'lib', 'preload.js'),
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     }
   }, bounds);
   mainWindow = new BrowserWindow(opts);
