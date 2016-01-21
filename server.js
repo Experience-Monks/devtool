@@ -16,6 +16,7 @@ var argv = require('minimist')(process.argv.slice(2), {
   ],
   string: [ 'index' ],
   alias: {
+    timeout: 't',
     headless: 'h',
     'browser-field': [ 'bf', 'browserField' ],
     watch: 'w',
@@ -124,6 +125,12 @@ app.on('ready', function () {
     show: argv.show ? true : undefined
   }, bounds);
   mainWindow = new BrowserWindow(opts);
+
+  if (typeof argv.timeout === 'number') {
+    setTimeout(function () {
+      mainWindow.close();
+    }, argv.timeout);
+  }
 
   if (argv.watch) {
     var globs = [].concat(argv.watch).filter(function (f) {

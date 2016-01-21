@@ -10,6 +10,10 @@ setup('process.argv', 'argv.js', JSON.stringify([
   '--foobar'
 ]), [ '--foobar' ]);
 
+setup('closes on --timeout',
+  path.resolve(__dirname, 'fixtures', 'node_modules', 'foo', 'node.js'),
+  'node', [ '--timeout', 1000 ]);
+
 setup('process.argv with full stop', 'argv.js', JSON.stringify([
   path.resolve(__dirname, 'fixtures', 'argv.js'),
   'some', '--arg'
@@ -26,6 +30,16 @@ test('process.stdin', function (t) {
   }));
   proc.stdin.write('beep boop\n');
   proc.stdin.end();
+});
+
+test('require.resolve entry file', function (t) {
+  t.plan(1);
+  t.timeoutAfter(4000);
+  var entry = [ 'test/fixtures/node_modules/foo' ];
+  var proc = spawn(cmd, entry.concat([ '--timeout', 1000 ]));
+  proc.stdout.pipe(concat(function (body) {
+    t.equal(body.toString(), 'node');
+  }));
 });
 
 setup('process.cwd()', 'cwd.js', process.cwd(), [ ]);
