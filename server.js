@@ -31,9 +31,36 @@ app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('v', 0);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-process.stdin.pause();
+var exitWithCode1 = false;
 global.__electronQuitOnError = true; // true until app starts
-global.__electronEntryFile = argv._[0];
+process.removeAllListeners('uncaughtException');
+process.on('uncaughtException', onUnhandledError);
+process.on('unhandledRejection', onUnhandledError);
+
+function onUnhandledError (err) {
+  console.error(err.stack ? err.stack : err);
+  if (global.__electronQuitOnError) {
+    exitWithCode1 = true;
+    app.quit();
+  }
+}
+
+// determine absolute path to entry file
+var cwd = process.cwd();
+var entryFile = argv._[0];
+if (entryFile) {
+  entryFile = path.isAbsolute(entryFile) ? entryFile : path.resolve(cwd, entryFile);
+  try {
+    entryFile = require.resolve(entryFile);
+  } catch (e) {
+    onUnhandledError(e);
+  }
+}
+
+// We use this to communicate with the preload.js script
+// There may be a cleaner way that does not pollute globals.
+process.stdin.pause();
+global.__electronEntryFile = entryFile;
 global.__electronConsoleHook = argv.console;
 global.__electronBrowserResolve = argv.browserField;
 global.__electronProcessTTY = {
@@ -42,16 +69,6 @@ global.__electronProcessTTY = {
   stderr: process.stderr.isTTY
 };
 
-var exitWithCode1 = false;
-process.on('uncaughtException', function (err) {
-  console.error(err);
-  if (global.__electronQuitOnError) {
-    exitWithCode1 = true;
-    app.quit();
-  }
-});
-
-var cwd = process.cwd();
 var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
 var customHtml = false; // if we should watch it as well
 if (argv.index) {
@@ -73,18 +90,6 @@ app.on('quit', function () {
 });
 
 app.on('ready', function () {
-  // bail on invalid input
-  if (global.__electronEntryFile) {
-    var filename = global.__electronEntryFile;
-    if (!path.extname(filename)) {
-      filename += '.js'; // TODO: should support full require.resolve
-    }
-    fs.stat(filename, function (err, stat) {
-      if (err) return fatal(err);
-      if (!stat.isFile()) return fatal('Given entry is not a file! Usage:\n  devtool index.js');
-    });
-  }
-
   var mainIndexURL = 'file://' + __dirname + '/index.html';
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
     // We can't just spin up a local server for this, see here:
@@ -143,7 +148,14 @@ app.on('ready', function () {
     global.__electronQuitOnError = argv.quit;
     if (!argv.headless) {
       webContents.openDevTools();
-      webContents.once('devtools-opened', sendStdin);
+      webContents.once('devtools-opened', function () {
+        // TODO: More work needs to be done for LiveEdit.
+        // if (entryFile) {
+        //   webContents.removeWorkSpace(cwd);
+        //   webContents.addWorkSpace(cwd);
+        // }
+        sendStdin();
+      });
     } else {
       // TODO: Find out why this timeout is necessary.
       // stdin is not triggering if sent immediately
