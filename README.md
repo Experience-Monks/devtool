@@ -41,6 +41,7 @@ Options:
   --poll, -p              enable polling when --watch is given
   --show, -s              show the browser window (default false)
   --headless, -h          do not open the DevTools window
+  --timeout, -t           if specified, will close after X seconds
   --browser-field, --bf   resolve using "browser" field
 ```
 
@@ -181,12 +182,12 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 
 This project is experimental and has not been tested on a wide range of applications or Node/OS environments. If you want to help, please open an issue or submit a PR. Some outstanding areas to explore:
 
-- Adding a `--timeout` option to auto-close after X seconds
 - Improving syntax error handling, e.g. adding it to Sources panel
 - Exposing an API for programmatic usage
-- Adding unit tests
+- Exploring LiveEdit & local modifications
+- Exploring native addons
 
-You can `git clone` and `npm install` this repo to start working from source.
+You can `git clone` and `npm install` this repo to start working from source. Type `npm run` to list all available commands.
 
 ## See Also / Comparisons
 ### `hihat`
