@@ -161,7 +161,7 @@ It also includes some additional features on top of Electron:
 
 - Improved error handling (more detailed syntax errors in console)
 - Improved source map support for required files
-- Makes various Node features behave as expected, like `require.main` and `process.argv`
+- Makes various Node features behave as expected, like `require.main`, `process.argv` and `process.stdin`
 - Console redirection back to terminal (optional)
 - File watching for development and quit-on-error flags for unit testing (e.g. continuous integration)
 - Handles `process.exit` and error codes

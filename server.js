@@ -161,7 +161,6 @@ app.on('ready', function () {
   webContents.once('did-finish-load', function () {
     global.__electronQuitOnError = argv.quit;
     if (!argv.headless) {
-      webContents.openDevTools({ detach: true });
       webContents.once('devtools-opened', function () {
         // We will hide the main window frame, especially
         // useful for windows users.
@@ -173,6 +172,7 @@ app.on('ready', function () {
         // }
         sendStdin();
       });
+      webContents.openDevTools({ detach: true });
     } else {
       // TODO: Find out why this timeout is necessary.
       // stdin is not triggering if sent immediately
