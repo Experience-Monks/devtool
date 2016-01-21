@@ -113,7 +113,9 @@ app.on('ready', function () {
     if (err) fatal(err);
   });
 
-  // We can't just use show: false apparently
+  // We can't just use show: false apparently.
+  // Instead we show a zero-size window and
+  // hide it once the detached DevTools are opened.
   // https://github.com/Jam3/devtool/issues/2
   var emptyWindow = { width: 0, height: 0, x: 0, y: 0 };
   var bounds = argv.show ? undefined : emptyWindow;
@@ -121,8 +123,7 @@ app.on('ready', function () {
     webPreferences: {
       preload: path.join(__dirname, 'lib', 'preload.js'),
       nodeIntegration: true
-    },
-    show: argv.show ? true : undefined
+    }
   }, bounds);
   mainWindow = new BrowserWindow(opts);
 
@@ -160,8 +161,11 @@ app.on('ready', function () {
   webContents.once('did-finish-load', function () {
     global.__electronQuitOnError = argv.quit;
     if (!argv.headless) {
-      webContents.openDevTools();
+      webContents.openDevTools({ detach: true });
       webContents.once('devtools-opened', function () {
+        // We will hide the main window frame, especially
+        // useful for windows users.
+        if (!argv.show) mainWindow.hide();
         // TODO: More work needs to be done for LiveEdit.
         // if (entryFile) {
         //   webContents.removeWorkSpace(cwd);
