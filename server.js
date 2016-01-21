@@ -12,7 +12,7 @@ var argv = require('minimist')(process.argv.slice(2), {
   '--': true,
   boolean: [
     'console', 'quit', 'poll', 'show', 'headless',
-    'browser-field'
+    'browser-field', 'version'
   ],
   string: [ 'index' ],
   alias: {
@@ -20,12 +20,18 @@ var argv = require('minimist')(process.argv.slice(2), {
     'browser-field': [ 'bf', 'browserField' ],
     watch: 'w',
     quit: 'q',
+    version: 'v',
     console: 'c',
     index: 'i',
     poll: 'p',
     show: 's'
   }
 });
+
+if (argv.version || argv.v) {
+  console.log(require('./package.json').version);
+  process.exit(0);
+}
 
 app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('v', 0);
