@@ -43,6 +43,7 @@ Options:
   --headless, -h          do not open the DevTools window
   --timeout, -t           if specified, will close after X seconds
   --browser-field, --bf   resolve using "browser" field
+  --break                 insert a breakpoint in entry point
 ```
 
 Examples:
