@@ -5,7 +5,7 @@
  */
 
 var http = require('http');
-
+debugger
 var server = http.createServer(function (req, res) {
   console.log('Requesting', req.url);
   if (req.url === '/') {

@@ -1,33 +1,13 @@
 var path = require('path');
 var fs = require('fs');
-var assign = require('object-assign');
 var createWatch = require('./lib/file-watch');
+var createMainWindow = require('./lib/main-window');
 
 var electron = require('electron');
 var app = electron.app;
-var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
-var argv = require('minimist')(process.argv.slice(2), {
-  '--': true,
-  boolean: [
-    'console', 'quit', 'poll', 'show', 'headless',
-    'browser-field', 'version'
-  ],
-  string: [ 'index' ],
-  alias: {
-    timeout: 't',
-    headless: 'h',
-    'browser-field': [ 'bf', 'browserField' ],
-    watch: 'w',
-    quit: 'q',
-    version: 'v',
-    console: 'c',
-    index: 'i',
-    poll: 'p',
-    show: 's'
-  }
-});
+var argv = require('./lib/parse-args')(process.argv.slice(2));
 
 if (argv.version || argv.v) {
   console.log(require('./package.json').version);
@@ -76,6 +56,7 @@ global.__electronProcessTTY = {
   stderr: process.stderr.isTTY
 };
 
+// Get starting HTML file
 var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
 var customHtml = false; // if we should watch it as well
 if (argv.index) {
@@ -98,6 +79,8 @@ app.on('quit', function () {
 
 app.on('ready', function () {
   var mainIndexURL = 'file://' + __dirname + '/index.html';
+
+  // Replace index.html with custom one
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
     // We can't just spin up a local server for this, see here:
     // https://github.com/atom/electron/issues/2414
@@ -113,27 +96,17 @@ app.on('ready', function () {
     if (err) fatal(err);
   });
 
-  // We can't just use show: false apparently.
-  // Instead we show a zero-size window and
-  // hide it once the detached DevTools are opened.
-  // https://github.com/Jam3/devtool/issues/2
-  var emptyWindow = { width: 0, height: 0, x: 0, y: 0 };
-  var bounds = argv.show ? undefined : emptyWindow;
-  var opts = assign({
-    webPreferences: {
-      preload: path.join(__dirname, 'lib', 'preload.js'),
-      nodeIntegration: true,
-      webSecurity: false
-    }
-  }, bounds);
-  mainWindow = new BrowserWindow(opts);
+  // Setup the BrowserWindow
+  mainWindow = createMainWindow(mainIndexURL, argv, function () {
+    global.__electronQuitOnError = argv.quit;
+  });
 
-  if (typeof argv.timeout === 'number') {
-    setTimeout(function () {
-      mainWindow.close();
-    }, argv.timeout);
-  }
+  // De-reference for GC
+  mainWindow.on('closed', function () {
+    mainWindow = null;
+  });
 
+  // Setup the file watcher
   if (argv.watch) {
     var globs = [].concat(argv.watch).filter(function (f) {
       return typeof f === 'string';
@@ -145,59 +118,15 @@ app.on('ready', function () {
     }
     watcher = createWatch(globs, argv);
     watcher.on('change', function (file) {
-      mainWindow.reload();
+      if (mainWindow) mainWindow.reload();
     });
   }
 
+  // Fatal error in renderer
   ipc.on('error', function (event, errObj) {
     var err = JSON.parse(errObj);
     bail(err.stack);
   });
-
-  var webContents = mainWindow.webContents;
-  webContents.on('dom-ready', function () {
-    webContents.send('dom-ready');
-  });
-
-  webContents.once('did-finish-load', function () {
-    global.__electronQuitOnError = argv.quit;
-    if (!argv.headless) {
-      webContents.once('devtools-opened', function () {
-        // We will hide the main window frame, especially
-        // useful for windows users.
-        if (!argv.show) mainWindow.hide();
-        // TODO: More work needs to be done for LiveEdit.
-        // if (entryFile) {
-        //   webContents.removeWorkSpace(cwd);
-        //   webContents.addWorkSpace(cwd);
-        // }
-        sendStdin();
-      });
-      webContents.openDevTools({ detach: true });
-    } else {
-      // TODO: Find out why this timeout is necessary.
-      // stdin is not triggering if sent immediately
-      setTimeout(function () {
-        sendStdin();
-      }, 500);
-    }
-  });
-
-  mainWindow.loadURL(mainIndexURL);
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
-
-  function sendStdin () {
-    process.stdin
-      .on('data', function (data) {
-        mainWindow.send('stdin', data);
-      })
-      .on('end', function () {
-        mainWindow.send('stdin', null);
-      })
-      .resume();
-  }
 
   function bail (err) {
     console.error(err.stack ? err.stack : err);
