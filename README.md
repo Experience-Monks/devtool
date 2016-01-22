@@ -107,7 +107,12 @@ Some screenshots of the profiling and debugging experience:
 
 > *Note:* Performance may vary between Node and Electron, so always take the results with a grain of salt!
 
-You can also set an initial breakpoint 
+You can also set an initial breakpoint with the `--break` flag. This will insert a `debugger` statement (hidden behind source maps) at the start of your entry file. This way, you can add breakpoints without having to reload the program or manually add them to your source code.
+
+```sh
+# run app but break on start
+devtool src/index.js --break
+```
 
 ### REPL
 
