@@ -132,6 +132,14 @@ Result:
 
 ![street](http://i.imgur.com/GzqrTK2.png)
 
+> *Note:* For the output to drain correctly, we need to close the window *after* the buffer has been written.
+
+```js
+process.stdout.write(buffer, function () {
+  window.close();
+});
+```
+
 ### Grunt/Gulp
 
 To debug Grunt/Gulp and other commands, you will need to pass the JavaScript file that runs them. You should also include `--` to avoid any argument conflicts.
@@ -173,9 +181,8 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 
 - `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
 - You must call `window.close()` to stop the process; apps will not quit on their own
-  - You should use `window.close()` instead of `process.exit(0)` to ensure all outputs drain before exiting
 - Certain modules that use native addons may not work within Electron
-- Some applications may need to show either the window (with `--show`) or the DevTool (which is shown by default) in order to render Canvas/DOM/HTML/etc to a buffer
+- The callback for `process.stdout.write` can be used to determine when to call `window.close()`, without losing any data
 
 ## Roadmap / Contributing
 
@@ -183,7 +190,6 @@ This project is experimental and has not been tested on a wide range of applicat
 
 - Improving syntax error handling, e.g. adding it to Sources panel
 - Exposing an API for programmatic usage
-- Exploring LiveEdit & local modifications
 - Exploring native addons
 
 You can `git clone` and `npm install` this repo to start working from source. Type `npm run` to list all available commands.

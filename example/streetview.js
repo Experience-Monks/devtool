@@ -20,7 +20,8 @@ googlePano(awesome(), function (err, result) {
     zoom: 1
   }).on('complete', function (canvas) {
     var buffer = toBuffer(canvas, 'image/png');
-    process.stdout.write(buffer);
-    window.close();
+    process.stdout.write(buffer, function () {
+      window.close();
+    });
   });
 });

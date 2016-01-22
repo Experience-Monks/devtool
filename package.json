@@ -46,11 +46,11 @@
     "test": "npm run lint && node test/index.js | faucet",
     "lint": "semistandard",
     "example:markdown": "./bin/index.js example/markdown.js -qch < README.md > example/markdown.png",
-    "example:http": "./bin/index.js example/http -w",
+    "example:http": "./bin/index.js example/http -w --break",
     "example:geolocate": "./bin/index.js example/geolocate.js -qch",
     "example:es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
     "example:browserify": "./bin/index.js example/browserify.js -qch",
-    "example:streetview": "./bin/index.js example/streetview.js -i example/streetview.html -q --bf > example/streetview.png"
+    "example:streetview": "./bin/index.js example/streetview.js -h -i example/streetview.html -q --bf > example/streetview.png"
   },
   "semistandard": {
     "ignore": [
