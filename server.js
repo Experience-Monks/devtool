@@ -16,7 +16,7 @@ if (argv.version || argv.v) {
 }
 
 app.commandLine.appendSwitch('disable-http-cache');
-app.commandLine.appendSwitch('v', 0);
+app.commandLine.appendSwitch('v', '-1');
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 var exitWithCode1 = false;

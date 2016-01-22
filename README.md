@@ -195,8 +195,8 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 
 - `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
 - You must call `window.close()` to stop the process; apps will not quit on their own
-- Certain modules that use native addons may not work within Electron
-- The callback for `process.stdout.write` can be used to determine when to call `window.close()`, without losing any data
+- You may run into troubles with modules that depend on native addons
+- If you want to close after writing to stderr/stdout, you should do so after a callback: `outStream.write(buf, callback)`
 
 ## Roadmap / Contributing
 
