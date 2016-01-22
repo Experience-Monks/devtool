@@ -8,6 +8,7 @@ var app = electron.app;
 var ipc = electron.ipcMain;
 
 var argv = require('./lib/parse-args')(process.argv.slice(2));
+var globals = argv.globals;
 
 if (argv.version || argv.v) {
   console.log(require('./package.json').version);
@@ -19,14 +20,14 @@ app.commandLine.appendSwitch('v', 0);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 var exitWithCode1 = false;
-global.__electronQuitOnError = true; // true until app starts
 process.removeAllListeners('uncaughtException');
 process.on('uncaughtException', onUnhandledError);
 process.on('unhandledRejection', onUnhandledError);
+process.stdin.pause();
 
 function onUnhandledError (err) {
   console.error(err.stack ? err.stack : err);
-  if (global.__electronQuitOnError) {
+  if (globals.quit) {
     exitWithCode1 = true;
     app.quit();
   }
@@ -39,22 +40,11 @@ if (entryFile) {
   entryFile = path.isAbsolute(entryFile) ? entryFile : path.resolve(cwd, entryFile);
   try {
     entryFile = require.resolve(entryFile);
+    globals.entry = entryFile; // setup entry for preload
   } catch (e) {
     onUnhandledError(e);
   }
 }
-
-// We use this to communicate with the preload.js script
-// There may be a cleaner way that does not pollute globals.
-process.stdin.pause();
-global.__electronEntryFile = entryFile;
-global.__electronConsoleHook = argv.console;
-global.__electronBrowserResolve = argv.browserField;
-global.__electronProcessTTY = {
-  stdin: process.stdin.isTTY,
-  stdout: process.stdout.isTTY,
-  stderr: process.stderr.isTTY
-};
 
 // Get starting HTML file
 var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
@@ -98,7 +88,8 @@ app.on('ready', function () {
 
   // Setup the BrowserWindow
   mainWindow = createMainWindow(mainIndexURL, argv, function () {
-    global.__electronQuitOnError = argv.quit;
+    // When we first launch, ensure the quit flag is set to the user args
+    globals.quit = argv.quit;
   });
 
   // De-reference for GC
@@ -130,14 +121,14 @@ app.on('ready', function () {
 
   function bail (err) {
     console.error(err.stack ? err.stack : err);
-    if (global.__electronQuitOnError) {
+    if (globals.quit) {
       exitWithCode1 = true;
       if (mainWindow) mainWindow.close();
     }
   }
 
   function fatal (err) {
-    global.__electronQuitOnError = true;
+    globals.quit = true;
     bail(err);
   }
 });

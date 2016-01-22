@@ -32,10 +32,11 @@ function capture (md) {
   var browserWindow = remote.getCurrentWindow();
   browserWindow.show();
   browserWindow.setContentSize(720, 640);
-  setTimeout(function () {
+  setTimeout(function () { // wait for images to render
     browserWindow.capturePage(function (data) {
-      process.stdout.write(data.toPng());
-      window.close();
+      process.stdout.write(data.toPng(), function () {
+        window.close();
+      });
     });
   }, 500);
 }

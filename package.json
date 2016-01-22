@@ -14,7 +14,7 @@
     "chokidar": "^1.4.2",
     "combine-source-map": "^0.7.1",
     "console-redirect": "^1.0.0",
-    "electron-prebuilt": "^0.35.6",
+    "electron-prebuilt": "^0.36.5",
     "events": "^1.1.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
@@ -45,7 +45,7 @@
   "scripts": {
     "test": "npm run lint && node test/index.js | faucet",
     "lint": "semistandard",
-    "example:markdown": "./bin/index.js example/markdown.js -hqc < README.md > example/markdown.png",
+    "example:markdown": "./bin/index.js example/markdown.js -qch < README.md > example/markdown.png",
     "example:http": "./bin/index.js example/http -w",
     "example:geolocate": "./bin/index.js example/geolocate.js -qch",
     "example:es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",

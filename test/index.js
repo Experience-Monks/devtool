@@ -62,7 +62,7 @@ test('console redirection', function (t) {
   t.timeoutAfter(4000);
 
   var entry = [ path.resolve(__dirname, 'fixtures', 'console.js') ];
-  var proc = spawn(cmd, entry.concat([ '--console' ]));
+  var proc = spawn(cmd, entry.concat([ '--console', '--headless' ]));
   proc.stdout.pipe(concat(function (body) {
     t.equal(body.toString(), 'beep boop\n');
   }));
