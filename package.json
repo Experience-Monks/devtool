@@ -49,7 +49,8 @@
     "example:geolocate": "./bin/index.js example/geolocate.js -qch",
     "example:es2015": "./bin/index.js example/es2015.js -w -i example/es2015.html",
     "example:browserify": "./bin/index.js example/browserify.js -qch",
-    "example:streetview": "./bin/index.js example/streetview.js -h -i example/streetview.html -q --bf > example/streetview.png"
+    "example:streetview": "./bin/index.js example/streetview.js -h -i example/streetview.html -q --bf > example/streetview.png",
+    "example:tape-browser": "browserify example/tape-browser.js | ./bin/index.js -c -t 1000 | faucet"
   },
   "semistandard": {
     "ignore": [

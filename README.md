@@ -174,6 +174,7 @@ See the [example/](./example/) folder for more ideas, and the [package.json](./p
 - [example/es2015.js](./example/es2015.js) - ES2015 transpiling
 - [example/geolocate.js](./example/geolocate.js) - prints current `[ latitude, longitude ]` to `stdout`
 - [example/http.js](./example/http.js) - a simple Node.js server that you can throw break points into
+- [example/tape-browser.js](./example/tape-browser.js) - demonstrates piping JavaScript directly into devtool, e.g. for browser testing
 
 ## Features
 
