@@ -107,6 +107,8 @@ Some screenshots of the profiling and debugging experience:
 
 > *Note:* Performance may vary between Node and Electron, so always take the results with a grain of salt!
 
+You can also set an initial breakpoint 
+
 ### REPL
 
 We can also use the DevTools Console as a basic Node REPL with some nice additional features. The require statements will be relative to your current working directory. You can run the command without any entry file, like this:
@@ -116,6 +118,12 @@ devtool
 ```
 
 ![console](http://i.imgur.com/bnInBHA.png)
+
+When you don't specify an entry file, you can pipe JavaScript in to execute it in the browser. For example:
+
+```sh
+browserify client.js | devtool -c
+```
 
 ### Browser APIs
 
