@@ -14,7 +14,7 @@
     "chokidar": "^1.4.2",
     "combine-source-map": "^0.7.1",
     "console-redirect": "^1.0.0",
-    "electron-prebuilt": "^0.35.6",
+    "electron-prebuilt": "^0.36.4",
     "events": "^1.1.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
