@@ -19,9 +19,7 @@
     "events": "^1.1.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
-    "run-parallel": "^1.1.4",
     "serializerr": "^1.0.2",
-    "simple-get": "^1.4.3",
     "strip-bom": "^2.0.0",
     "syntax-error": "^1.1.4"
   },
