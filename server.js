@@ -87,7 +87,7 @@ app.on('ready', function () {
   });
 
   // Setup the BrowserWindow
-  mainWindow = createMainWindow(mainIndexURL, argv, function () {
+  mainWindow = createMainWindow(entryFile, mainIndexURL, argv, function () {
     // When we first launch, ensure the quit flag is set to the user args
     globals.quit = argv.quit;
   });

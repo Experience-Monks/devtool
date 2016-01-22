@@ -13,6 +13,7 @@
     "browser-resolve": "^1.11.0",
     "chokidar": "^1.4.2",
     "combine-source-map": "^0.7.1",
+    "concat-stream": "^1.5.1",
     "console-redirect": "^1.0.0",
     "electron-prebuilt": "^0.36.5",
     "events": "^1.1.0",
