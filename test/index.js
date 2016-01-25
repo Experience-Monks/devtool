@@ -45,6 +45,11 @@ test('require.resolve entry file', function (t) {
 setup('process.cwd()', 'cwd.js', process.cwd(), [ ]);
 setup('require.main', 'main.js', 'is main');
 setup('browser field resolution enabled', 'browser-field.js', 'browser', [ '--browser-field' ]);
+setup('browser field resolution enabled', 'no-browser-globals.js', JSON.stringify({
+  window: 'undefined',
+  document: 'undefined',
+  navigator: 'undefined'
+}), [ '--no-browser-globals' ]);
 setup('browser field resolution disabled', 'browser-field.js', 'node', [ ]);
 setup('index.html', 'close.js', 'beep boop\n', [
   '--console',
