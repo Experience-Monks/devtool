@@ -176,6 +176,8 @@ See the [example/](./example/) folder for more ideas, and the [package.json](./p
 - [example/http.js](./example/http.js) - a simple Node.js server that you can throw break points into
 - [example/tape-browser.js](./example/tape-browser.js) - demonstrates piping JavaScript directly into devtool, e.g. for browser testing
 
+Also see [devtool-examples](https://github.com/Jam3/devtool-examples) for more ideas.
+
 ## Features
 
 This is built on [Electron](https://github.com/atom/electron/), so it includes the Console, Profile, Debugger, etc.
