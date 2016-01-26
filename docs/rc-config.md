@@ -23,7 +23,7 @@ Or disable config lookup entirely:
 devtool src/index.js --no-config
 ```
 
-The JSON supports comments. For example, you can add the following `.devtoolrc` file in the same directory as your project.
+For example, you can add the following `.devtoolrc` file in the same directory as your project.
 
 ```js
 {
@@ -45,6 +45,8 @@ The JSON supports comments. For example, you can add the following `.devtoolrc` 
   }
 }
 ```
+
+> :bulb: The JSON format supports comments.
 
 Some V8 flags may need to be set before initialization. You can pass these as options to electron like so:
 
