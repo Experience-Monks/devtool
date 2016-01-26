@@ -5,6 +5,14 @@ var concat = require('concat-stream');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+setup('test --config=file v8 flags', 'harmony-default-parameters.js',
+  'baz',
+  [ '--js-flags=--harmony-default-parameters', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
+
+setup('js-flags from CLI', 'harmony-proxies.js', 'object\n', [
+  '--js-flags=--harmony-proxies', '--console', '--timeout', '1000'
+]);
+
 setup('process.argv', 'argv.js', JSON.stringify([
   path.resolve(__dirname, 'fixtures', 'argv.js'),
   '--foobar'
@@ -87,6 +95,7 @@ function setup (msg, inputFile, outputStr, args) {
     proc.stdout.pipe(concat(function (body) {
       t.equal(body.toString(), outputStr);
     }));
+    proc.stderr.pipe(process.stderr);
   });
 }
 

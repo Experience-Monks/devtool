@@ -1,0 +1,7 @@
+{
+  "v8": {
+    "flags": [
+      "--harmony-default-parameters"
+    ]
+  }
+}

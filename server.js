@@ -2,18 +2,12 @@ var path = require('path');
 var fs = require('fs');
 var createWatch = require('./lib/file-watch');
 var createMainWindow = require('./lib/main-window');
+var parseArgs = require('./lib/parse-args');
 
 var electron = require('electron');
 var app = electron.app;
 var ipc = electron.ipcMain;
-
-var argv = require('./lib/parse-args')(process.argv.slice(2));
-var globals = argv.globals;
-
-if (argv.version || argv.v) {
-  console.log(require('./package.json').version);
-  process.exit(0);
-}
+var globals;
 
 app.commandLine.appendSwitch('disable-http-cache');
 app.commandLine.appendSwitch('v', '-1');
@@ -21,16 +15,24 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 
 var exitWithCode1 = false;
 process.removeAllListeners('uncaughtException');
-process.on('uncaughtException', onUnhandledError);
-process.on('unhandledRejection', onUnhandledError);
 process.stdin.pause();
 
-function onUnhandledError (err) {
-  console.error(err.stack ? err.stack : err);
-  if (globals.quit) {
-    exitWithCode1 = true;
-    app.quit();
-  }
+var argv = parseArgs(process.argv.slice(2));
+globals = argv.globals;
+
+if (argv.version || argv.v) {
+  console.log(require('./package.json').version);
+  process.exit(0);
+}
+
+// inject V8 flags
+if (argv.config && argv.config.v8) {
+  var flags = []
+      .concat(argv.config.v8.flags)
+      .filter(Boolean);
+  flags.forEach(function (flag) {
+    app.commandLine.appendSwitch('js-flags', flag);
+  });
 }
 
 // determine absolute path to entry file
@@ -41,8 +43,9 @@ if (entryFile) {
   try {
     entryFile = require.resolve(entryFile);
     globals.entry = entryFile; // setup entry for preload
-  } catch (e) {
-    onUnhandledError(e);
+  } catch (err) {
+    console.error(err.stack ? err.stack : err);
+    process.exit(1);
   }
 }
 

@@ -43,9 +43,10 @@ Options:
   --headless, -h          do not open the DevTools window
   --timeout, -t           if specified, will close after X seconds
   --break                 insert a breakpoint in entry point
+  --config                a path to .devtoolrc config file
   --browser-field, --bf   resolve using "browser" field
-  --no-browser-globals, --no-bg
-                          removes window,document,etc from required files
+  --no-browser-globals,   
+                --no-bg   removes window,document,navigator from required files
 ```
 
 Examples:
@@ -74,6 +75,8 @@ If `--` is given, anything after it will be used as the arguments for the app's 
 The `--browser-field` or `--bf` makes the `require()` statements respect the [package.json `"browser"` field](https://gist.github.com/defunctzombie/4339901).
 
 The `--no-browser-globals` or `--no-bg` flag makes required modules behave a little more like Node, in that `window`, `navigator` and `document` will be undefined. The console and REPL will still have these globals defined.
+
+You can also specify advanced Electron/Node options in a `rc` configuration file.
 
 ## Use Cases
 

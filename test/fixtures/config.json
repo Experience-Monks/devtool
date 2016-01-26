@@ -1,0 +1,17 @@
+{
+  "browserWindow": {
+    "webPreferences": {
+      "webSecurity": false
+    },
+    "width": 500,
+    "height": 500,
+    "show": false,
+    "useContentSize": true
+  },
+  "detachDevTools": false,
+  "v8": {
+    "flags": [
+      "--harmony-arrow-functions"
+    ]
+  }
+}
