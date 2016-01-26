@@ -44,3 +44,33 @@ The JSON supports comments. For example, you can add the following `.devtoolrc` 
   }
 }
 ```
+
+## DevTools Extensions
+
+The following extensions should work with Electron (and thus `devtool`).
+
+- [chrome-devtools-zerodarkmatrix-theme](https://github.com/mauricecruz/chrome-devtools-zerodarkmatrix-theme)
+
+You can add this to a `~/.devtoolrc` file so that it persists across all uses of the app. For example, after cloning the above theme:
+
+```js
+{
+  "devToolsExtensions": [
+    "/path/to/chrome-devtools-zerodarkmatrix-theme/theme-extension"
+  ]
+}
+```
+
+For themes to work, you also need to open `Settings -> Experiments` in the DevTools panel and check `"Allow custom UI themes"`. This will persist for future runs.
+
+## Clearing Extensions
+
+Currently, Electron does not remove the theme from the Chrome application cache.
+
+You can paste this in the `devtool` REPL to find out where the cache is, and then delete the `DevTools Extensions` file in that folder:
+
+```js
+require('electron').remote.require('app').getPath('userData')
+```
+
+Alternatively, you can go to `Settings -> General -> Restore Defaults and Reload` while using devtool.
