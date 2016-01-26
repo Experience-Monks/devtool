@@ -46,6 +46,12 @@ The JSON supports comments. For example, you can add the following `.devtoolrc` 
 }
 ```
 
+Some V8 flags may need to be set before initialization. You can pass these as options to electron like so:
+
+```sh
+devtool src/index.js --js-flags="--harmony-proxies"
+```
+
 ## DevTools Extensions
 
 The following extensions should work with Electron (and thus `devtool`).
