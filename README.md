@@ -200,6 +200,8 @@ It also includes some additional features on top of Electron:
 - File watching for development and quit-on-error flags for unit testing (e.g. continuous integration)
 - Handles `process.exit` and error codes
 - Supports `"browser"` field resolution (optional)
+- Can treat `window`, `browser` and `navigator` as `undefined` for better compatibility with Node.js modules (optional)
+- Supports config files for V8 flags, color themes, and other options
 
 ## Gotchas
 

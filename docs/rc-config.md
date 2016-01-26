@@ -5,8 +5,8 @@ You can configure advanced Node and Electron options through a `rc` file. Option
 Currently the following config options are supported:
 
 - `browserWindow` – options to use when creating the [BrowserWindow](https://github.com/atom/electron/blob/master/docs/api/browser-window.md)
-- `detachDevTools` – a boolean, default `true`, to create DevTools detached or attached to the main window
 - `v8` – an object with `flags`, an array of strings like `"--harmony-arrow-function"`
+- `detachDevTools` – a boolean, default `true`, to create DevTools detached or attached to the main window
 - `devToolsExtensions` – an array of paths to Chrome DevTool Extensions, see [DevTools Extensions](devtools-extensions) for details
 
 By default, config will search for a local `.devtoolrc`, or looking up the folder tree to root/home directories. See [here](https://github.com/dominictarr/rc#standards) for details.
