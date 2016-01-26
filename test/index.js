@@ -5,6 +5,9 @@ var concat = require('concat-stream');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+setup('module.parent from main', 'no-parent.js', 'no-parent');
+setup('module.parent from other', 'no-parent-other.js', 'parent');
+
 setup('test --config=file v8 flags', 'harmony-default-parameters.js',
   'baz',
   [ '--js-flags=--harmony-default-parameters', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
