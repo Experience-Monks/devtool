@@ -76,7 +76,9 @@ The `--browser-field` or `--bf` makes the `require()` statements respect the [pa
 
 The `--no-browser-globals` or `--no-bg` flag makes required modules behave a little more like Node, in that `window`, `navigator` and `document` will be undefined. The console and REPL will still have these globals defined.
 
-You can also specify advanced Electron/Node options in a `rc` configuration file.
+#### Advanced Configuration
+
+You can also specify advanced Electron/Node options in a `rc` configuration file, such as DevTools themes and V8 flags. See [rc configuration](./docs/rc-config.md) for more details.
 
 ## Use Cases
 
