@@ -5,8 +5,8 @@
 Runs Node.js programs inside Chrome DevTools (using [Electron](https://github.com/atom/electron/)).
 
 ```sh
-# open a Node program in Chrome's DevTools
-devtool src/index.js
+# runs a Node.js app in DevTools
+devtool src/app.js
 ```
 
 This allows you to profile, debug and develop typical Node.js programs with some of the features of Chrome DevTools.

@@ -46,7 +46,7 @@ For example, you can add the following `.devtoolrc` file in the same directory a
 }
 ```
 
-> :bulb: The JSON format supports comments.
+> :bulb: The `.devtoolrc` supports comments in JSON.
 
 Some V8 flags may need to be set before initialization. You can pass these as options to electron like so:
 
