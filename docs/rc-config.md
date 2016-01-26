@@ -72,6 +72,8 @@ You can add this to a `~/.devtoolrc` file so that it persists across all uses of
 
 For themes to work, you also need to open `Settings -> Experiments` in the DevTools panel and check `"Allow custom UI themes"`. This will persist for future runs.
 
+![Theme](http://i.imgur.com/nXWan6H.png)
+
 ## Clearing Extensions
 
 Currently, Electron does not remove the theme from the Chrome application cache.
