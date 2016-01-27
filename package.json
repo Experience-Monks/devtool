@@ -29,6 +29,7 @@
     "awesome-streetview": "^1.4.2",
     "babel-plugin-transform-es2015-template-literals": "^6.3.13",
     "babel-register": "^6.4.3",
+    "bluebird": "^3.1.5",
     "browserify": "^13.0.0",
     "concat-stream": "^1.5.1",
     "cross-spawn-async": "^2.1.6",

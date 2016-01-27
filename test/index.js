@@ -5,6 +5,11 @@ var concat = require('concat-stream');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+rejectedPromise('gets rejected Bluebird promise');
+rejectedPromise('gets rejected Bluebird promise with --no-bg', [ '--no-bg' ]);
+// TODO: Exit code 1 for rejected bluebird promises...?
+// rejectedPromise('gets rejected Bluebird promise and quits', [ '-q' ]);
+
 setup('module.parent from main', 'no-parent.js', 'no-parent');
 setup('module.parent from other', 'no-parent-other.js', 'parent');
 
@@ -99,6 +104,18 @@ function setup (msg, inputFile, outputStr, args) {
       t.equal(body.toString(), outputStr);
     }));
     proc.stderr.pipe(process.stderr);
+  });
+}
+
+function rejectedPromise (msg, args) {
+  test(msg, function (t) {
+    t.plan(1);
+    t.timeoutAfter(6000);
+    var entry = [ 'test/fixtures/bluebird-reject.js' ];
+    var proc = spawn(cmd, entry.concat([ '-c', '-h', '-t', 1000 ]).concat(args || []));
+    proc.stderr.pipe(concat(function (body) {
+      t.ok(body.toString().indexOf('Rejecting promise!') >= 0, 'finds rejected promise');
+    }));
   });
 }
 
