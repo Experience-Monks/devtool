@@ -6,9 +6,11 @@ var assign = require('object-assign');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+setup('use Node timers for unref()', 'timers-unref.js', 'function', [ '-h' ]);
+
 test('respect NODE_PATH for resolving requires', function (t) {
   t.plan(1);
-  // t.timeoutAfter(4000);
+  t.timeoutAfter(4000);
 
   var entry = [ path.resolve(__dirname, 'fixtures', 'node-path.js') ];
   var env = assign({}, process.env, {
