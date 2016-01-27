@@ -6,6 +6,11 @@ var assign = require('object-assign');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+rejectedPromise('gets rejected Bluebird promise');
+rejectedPromise('gets rejected Bluebird promise with --no-bg', [ '--no-bg' ]);
+// TODO: Exit code 1 for rejected bluebird promises...?
+// rejectedPromise('gets rejected Bluebird promise and quits', [ '-q' ]);
+
 setup('use Node timers for unref()', 'timers-unref.js', 'function', [ '-h' ]);
 
 test('respect NODE_PATH for resolving requires', function (t) {
@@ -24,11 +29,6 @@ test('respect NODE_PATH for resolving requires', function (t) {
     t.equal(body.toString(), 'foo/one');
   }));
 });
-
-rejectedPromise('gets rejected Bluebird promise');
-rejectedPromise('gets rejected Bluebird promise with --no-bg', [ '--no-bg' ]);
-// TODO: Exit code 1 for rejected bluebird promises...?
-// rejectedPromise('gets rejected Bluebird promise and quits', [ '-q' ]);
 
 setup('module.parent from main', 'no-parent.js', 'no-parent');
 setup('module.parent from other', 'no-parent-other.js', 'parent');

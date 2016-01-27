@@ -14,7 +14,6 @@
     "chokidar": "^1.4.2",
     "combine-source-map": "^0.7.1",
     "concat-stream": "^1.5.1",
-    "console-redirect": "^1.0.0",
     "deep-extend": "^0.4.1",
     "electron-prebuilt": "^0.36.5",
     "events": "^1.1.0",
@@ -22,6 +21,7 @@
     "object-assign": "^4.0.1",
     "rc": "^1.1.6",
     "serializerr": "^1.0.2",
+    "sliced": "^1.0.1",
     "strip-bom": "^2.0.0",
     "syntax-error": "^1.1.4"
   },
