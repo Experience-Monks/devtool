@@ -74,7 +74,7 @@ If `--` is given, anything after it will be used as the arguments for the app's 
 
 The `--browser-field` or `--bf` makes the `require()` statements respect the [package.json `"browser"` field](https://gist.github.com/defunctzombie/4339901).
 
-The `--no-browser-globals` or `--no-bg` flag makes required modules behave a little more like Node, in that `window`, `navigator` and `document` will be undefined. The console and REPL will still have these globals defined.
+The `--no-browser-globals` or `--no-bg` flag makes required modules behave a little more like Node, in that `window`, `navigator`, `document` and some other browser globals will be undefined in required files. Note: the console and REPL may still show some of these globals.
 
 #### Advanced Configuration
 
@@ -195,12 +195,12 @@ It also includes some additional features on top of Electron:
 
 - Improved error handling (more detailed syntax errors in console)
 - Improved source map support for required files
-- Makes various Node features behave as expected, like `require.main`, `process.argv` and `process.stdin`
+- Makes various Node features behave as expected, like `require.main`, `process.argv`, `process.stdin` and [timers](https://nodejs.org/api/timers.html)
 - Console redirection back to terminal (optional)
 - File watching for development and quit-on-error flags for unit testing (e.g. continuous integration)
 - Handles `process.exit` and error codes
 - Supports `"browser"` field resolution (optional)
-- Can treat `window`, `browser` and `navigator` as `undefined` for better compatibility with Node.js modules (optional)
+- Can hide browser globals (like `window` and `navigator`) for better compatibility with Node.js modules (optional)
 - Supports config files for V8 flags, color themes, and other options
 
 ## Gotchas
@@ -208,9 +208,11 @@ It also includes some additional features on top of Electron:
 Since this is running in Electron and Chromium, instead of Node, you might run into some oddities and gotchas. 
 
 - `window` and other browser APIs are present; this may affect modules using these globals to detect Browser/Node environments
+  - The `--no-browser-globals` may help mitigate these issues
 - You must call `window.close()` to stop the process; apps will not quit on their own
 - If a native module does not work, you may need to [rebuild it for the right version of Electron](http://electron.atom.io/docs/v0.36.0/tutorial/using-native-node-modules/)
-- If you want to close after writing to stderr/stdout, you should do so after a callback: `outStream.write(buf, callback)`
+- If you want to close or exit after writing to stderr/stdout, you should do so after a callback: `outStream.write(buf, callback)`
+- `setTimeout`, `setInterval` and related functions are shimmed for better compatibility with [Node.js `timers`](https://nodejs.org/api/timers.html)
 
 ## Roadmap / Contributing
 
@@ -219,6 +221,7 @@ This project is experimental and has not been tested on a wide range of applicat
 - Improving syntax error handling, e.g. adding it to Sources panel
 - Exposing an API for programmatic usage
 - Exploring native addons
+- Testing against a wide range of Node.js applications and modules
 
 You can `git clone` and `npm install` this repo to start working from source. Type `npm run` to list all available commands.
 
