@@ -163,6 +163,8 @@ process.stdout.write(buffer, function () {
 });
 ```
 
+See [extract-streetview](https://github.com/Jam3/extract-streetview) for a practical implementation of this idea built on `devtool`.
+
 ### Grunt/Gulp
 
 To debug Grunt/Gulp and other commands, you will need to pass the JavaScript file that runs them. You should also include `--` to avoid any argument conflicts.
