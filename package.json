@@ -23,7 +23,8 @@
     "serializerr": "^1.0.2",
     "sliced": "^1.0.1",
     "strip-bom": "^2.0.0",
-    "syntax-error": "^1.1.4"
+    "syntax-error": "^1.1.4",
+    "through2": "^2.0.0"
   },
   "devDependencies": {
     "awesome-streetview": "^1.4.2",
