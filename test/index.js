@@ -6,12 +6,13 @@ var concat = require('concat-stream');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+setup('use Node timers for unref()', 'timers.js', 'function', [ '-h' ]);
+setup('use Browser timers', 'timers.js', 'undefined', [ '-h', '--no-node-timers' ]);
+
 rejectedPromise('gets rejected Bluebird promise');
 rejectedPromise('gets rejected Bluebird promise with --no-bg', [ '--no-bg' ]);
 // TODO: Exit code 1 for rejected bluebird promises...?
 // rejectedPromise('gets rejected Bluebird promise and quits', [ '-q' ]);
-
-setup('use Node timers for unref()', 'timers-unref.js', 'function', [ '-h' ]);
 
 test('respect NODE_PATH for resolving requires', function (t) {
   t.plan(1);

@@ -45,6 +45,8 @@ Options:
   --break                 insert a breakpoint in entry point
   --config                a path to .devtoolrc config file
   --browser-field, --bf   resolve using "browser" field
+  --no-node-timers,
+                --no-nt   use browser timers
   --no-browser-globals,   
                 --no-bg   removes window,document,navigator from required files
 ```
