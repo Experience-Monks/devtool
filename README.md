@@ -44,6 +44,7 @@ Options:
   --timeout, -t           if specified, will close after X seconds
   --break                 insert a breakpoint in entry point
   --config                a path to .devtoolrc config file
+  --verbose               verbose Chromium logging
   --browser-field, --bf   resolve using "browser" field
   --no-node-timers,
                 --no-nt   use browser timers

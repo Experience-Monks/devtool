@@ -9,16 +9,18 @@ var app = electron.app;
 var ipc = electron.ipcMain;
 var globals;
 
-app.commandLine.appendSwitch('disable-http-cache');
-app.commandLine.appendSwitch('v', '-1');
-app.commandLine.appendSwitch('vmodule', 'console=0');
-
 var exitWithCode1 = false;
 process.removeAllListeners('uncaughtException');
 process.stdin.pause();
 
 var argv = parseArgs(process.argv.slice(2));
 globals = argv.globals;
+
+app.commandLine.appendSwitch('disable-http-cache');
+if (!argv.verbose) {
+  app.commandLine.appendSwitch('v', '-1');
+  app.commandLine.appendSwitch('vmodule', 'console=0');
+}
 
 if (argv.version || argv.v) {
   console.log(require('./package.json').version);
