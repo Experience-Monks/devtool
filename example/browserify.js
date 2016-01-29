@@ -14,7 +14,6 @@ function run () {
       if (err) throw err;
       console.profileEnd('build');
       console.log('bundle size in bytes:', src.length);
-      if (process.env.NODE_ENV !== 'development') window.close();
     });
 }
 
