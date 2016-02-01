@@ -9,7 +9,7 @@ Runs Node.js programs inside Chrome DevTools (using [Electron](https://github.co
 devtool src/app.js
 ```
 
-This allows you to profile, debug and develop typical Node.js programs with some of the features of Chrome DevTools.
+This allows you to profile, debug and develop typical Node.js programs with some of the features of Chrome DevTools. See my blog post [Debugging Node.js With Chrome DevTools](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools) for more details.
 
 The recording below shows setting breakpoints within an HTTP server.
 
@@ -79,9 +79,13 @@ The `--browser-field` or `--bf` makes the `require()` statements respect the [pa
 
 The `--no-browser-globals` or `--no-bg` flag makes required modules behave a little more like Node, in that `window`, `navigator`, `document` and some other browser globals will be undefined in required files. Note: the console and REPL may still show some of these globals.
 
-#### Advanced Configuration
+### Advanced Configuration
 
 You can also specify advanced Electron/Node options in a `rc` configuration file, such as DevTools themes and V8 flags. See [rc configuration](./docs/rc-config.md) for more details.
+
+### Further Documentation
+
+See my blog post [Debugging Node.js With Chrome DevTools](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools) for more details.
 
 ## Use Cases
 
