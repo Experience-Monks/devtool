@@ -3,6 +3,7 @@ var fs = require('fs');
 var createWatch = require('./lib/file-watch');
 var createMainWindow = require('./lib/main-window');
 var parseArgs = require('./lib/parse-args');
+var mime = require('mime');
 
 var electron = require('electron');
 var app = electron.app;
@@ -85,7 +86,20 @@ app.on('ready', function () {
         mimeType: 'text/html'
       });
     } else {
-      callback(request);
+      var file = request.url;
+      if (file.indexOf('file://') === 0) {
+        file = file.substring(7);
+      }
+
+      fs.readFile(file, function (err, data) {
+        if (err) return callback(-404);
+        var mimeType = mime.lookup(file);
+        console.log('mime', mimeType)
+        callback({
+          data: data,
+          mimeType: mimeType
+        });
+      });
     }
   }, function (err) {
     if (err) fatal(err);
