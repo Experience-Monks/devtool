@@ -84,7 +84,9 @@ app.on('ready', function () {
     if (file === mainIndexURL) {
       file = htmlFile;
     } else if (file.indexOf('file://') === 0) {
+      // All other assets should be relative to the user's cwd
       file = file.substring(7);
+      file = path.resolve(cwd, path.relative(__dirname, file));
     }
 
     fs.readFile(file, function (err, data) {
