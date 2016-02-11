@@ -6,6 +6,13 @@ var concat = require('concat-stream');
 var cmd = path.resolve(__dirname, '..', 'bin', 'index.js');
 var test = require('tape');
 
+setup('loads images', 'image-src.js', 'ok\nok', [ '-h' ]);
+setup('loads images with custom index', 'image-src.js', 'ok\nok', [
+  '-h',
+  '--index',
+  path.resolve(__dirname, 'fixtures', 'index.html')
+]);
+
 setup('use Node timers for unref()', 'timers.js', 'function', [ '-h' ]);
 setup('use Browser timers', 'timers.js', 'undefined', [ '-h', '--no-node-timers' ]);
 

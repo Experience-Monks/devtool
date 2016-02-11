@@ -52,15 +52,6 @@ if (entryFile) {
   }
 }
 
-// Get starting HTML file
-var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
-var customHtml = false; // if we should watch it as well
-if (argv.index) {
-  customHtml = true;
-  htmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
-}
-var htmlData = fs.readFileSync(htmlFile);
-
 var watcher = null;
 var mainWindow = null;
 app.on('window-all-closed', function () {
@@ -74,33 +65,36 @@ app.on('quit', function () {
 });
 
 app.on('ready', function () {
+  // Get starting HTML file
+  var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
+  var customHtml = false; // if we should watch it as well
+  if (argv.index) {
+    customHtml = true;
+    htmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
+  }
+
   var mainIndexURL = 'file://' + __dirname + '/index.html';
 
   // Replace index.html with custom one
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
     // We can't just spin up a local server for this, see here:
     // https://github.com/atom/electron/issues/2414
-    if (request.url === mainIndexURL) {
-      callback({
-        data: htmlData,
-        mimeType: 'text/html'
-      });
-    } else {
-      var file = request.url;
-      if (file.indexOf('file://') === 0) {
-        file = file.substring(7);
-      }
 
-      fs.readFile(file, function (err, data) {
-        if (err) return callback(-404);
-        var mimeType = mime.lookup(file);
-        console.log('mime', mimeType)
-        callback({
-          data: data,
-          mimeType: mimeType
-        });
-      });
+    var file = request.url;
+    if (file === mainIndexURL) {
+      file = htmlFile;
+    } else if (file.indexOf('file://') === 0) {
+      file = file.substring(7);
     }
+
+    fs.readFile(file, function (err, data) {
+      // Could convert Node error codes to Chromium for better reporting
+      if (err) return callback(-6);
+      callback({
+        data: data,
+        mimeType: mime.lookup(file)
+      });
+    });
   }, function (err) {
     if (err) fatal(err);
   });
