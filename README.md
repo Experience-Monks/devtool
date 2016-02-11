@@ -172,9 +172,9 @@ process.stdout.write(buffer, function () {
 
 See [extract-streetview](https://github.com/Jam3/extract-streetview) for a practical implementation of this idea built on `devtool`.
 
-### Grunt/Gulp
+### Grunt/Gulp/Mocha
 
-To debug Grunt/Gulp and other commands, you will need to pass the JavaScript file that runs them. You should also include `--` to avoid any argument conflicts.
+To debug Grunt/Gulp/Mocha and other commands, you will need to pass the JavaScript file that runs them. You should also include `--` to avoid any argument conflicts.
 
 ```sh
 # same as "gulp watch"
@@ -182,6 +182,9 @@ devtool node_modules/gulp/bin/gulp.js -c -- watch
 
 # same as "grunt"
 devtool node_modules/grunt-cli/bin/grunt -c --
+
+# run a mocha test
+devtool node_modules/mocha/bin/_mocha -qc -- ./tests/my-spec.js 
 ```
 
 ### Other Examples
