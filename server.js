@@ -66,46 +66,29 @@ app.on('quit', function () {
 
 app.on('ready', function () {
   // Get starting HTML file
-  var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
+  var mainIndexURL = 'file://' + __dirname + '/lib/index.html';
+  var htmlFileUrl = mainIndexURL;
   var customHtml = false; // if we should watch it as well
   if (argv.index) {
     customHtml = true;
-    htmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
+    var absHtmlFile = path.isAbsolute(argv.index) ? argv.index : path.resolve(cwd, argv.index);
+    htmlFileUrl = 'file://' + absHtmlFile;
   }
-
-  var mainIndexURL = 'file://' + __dirname + '/index.html';
-
-  // Replace index.html with custom one
-  electron.protocol.interceptBufferProtocol('file', function (request, callback) {
-    // We can't just spin up a local server for this, see here:
-    // https://github.com/atom/electron/issues/2414
-
-    var file = request.url;
-    if (file === mainIndexURL) {
-      file = htmlFile;
-    } else if (file.indexOf('file://') === 0) {
-      // All other assets should be relative to the user's cwd
-      file = file.substring(7);
-      file = path.resolve(cwd, path.relative(__dirname, file));
-    }
-
-    fs.readFile(file, function (err, data) {
-      // Could convert Node error codes to Chromium for better reporting
-      if (err) return callback(-6);
-      callback({
-        data: data,
-        mimeType: mime.lookup(file)
-      });
-    });
-  }, function (err) {
-    if (err) fatal(err);
-  });
 
   // Setup the BrowserWindow
   mainWindow = createMainWindow(entryFile, mainIndexURL, argv, function () {
     // When we first launch, ensure the quit flag is set to the user args
     globals.quit = argv.quit;
   });
+
+  // Replace index.html with a custom one
+  if (htmlFileUrl !== mainIndexURL) {
+    mainWindow.webContents.session.webRequest.onBeforeRequest({
+      urls: [ mainIndexURL ]
+    }, (details, callback) => {
+      callback({ redirectURL: htmlFileUrl });
+    });
+  }
 
   // De-reference for GC
   mainWindow.on('closed', function () {
