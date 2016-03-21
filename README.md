@@ -45,6 +45,7 @@ Options:
   --break                 insert a breakpoint in entry point
   --config                a path to .devtoolrc config file
   --verbose               verbose Chromium logging
+  --version, -v           log versions of underlying tools
   --browser-field, --bf   resolve using "browser" field
   --no-node-timers,
                 --no-nt   use browser timers
