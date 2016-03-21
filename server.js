@@ -24,7 +24,10 @@ if (!argv.verbose) {
 }
 
 if (argv.version || argv.v) {
-  console.log(require('./package.json').version);
+  console.log('devtool ' + require('./package.json').version);
+  console.log('electron ' + process.versions.electron);
+  console.log('node ' + process.versions.node);
+  console.log('chrome ' + process.versions.chrome);
   process.exit(0);
 }
 
