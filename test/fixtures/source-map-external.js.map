@@ -1,0 +1,1 @@
+{"version":3,"sources":["a.js"],"names":[],"mappings":";;;;;AAAA,IAAM,MAAM,SAAN,GAAM;AAAA,MAAC,CAAD,yDAAK,KAAL;AAAA,SAAkB,CAAlB;AAAA,CAAZ;kBACe,G","file":"compiled.js","sourcesContent":["const foo = (a = 'foo') => `${a}, bar`;\nexport default foo;\n"]}
