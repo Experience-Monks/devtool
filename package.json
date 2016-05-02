@@ -1,6 +1,6 @@
 {
   "name": "devtool",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "description": "runs Node.js programs through Chromium DevTools",
   "main": "index.js",
   "license": "MIT",
