@@ -47,6 +47,8 @@ Options:
   --verbose               verbose Chromium logging
   --version, -v           log versions of underlying tools
   --browser-field, --bf   resolve using "browser" field
+  --no-source-maps,
+                --no-sm   disable source map generation
   --no-node-timers,
                 --no-nt   use browser timers
   --no-browser-globals,   
