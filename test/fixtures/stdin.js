@@ -1,9 +1,11 @@
 require('get-stdin')()
   .then(function (data) {
-    process.stdout.write(data.toString());
-    window.close();
+    process.stdout.write(data.toString(), function () {
+      window.close();
+    });
   })
   .catch(function (err) {
-    process.stdout.write(err.message + '\n');
-    process.exit(1);
+    process.stdout.write(err.message + '\n', function () {
+      process.exit(1);
+    });
   });
