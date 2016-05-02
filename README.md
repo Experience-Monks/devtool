@@ -228,6 +228,7 @@ Since this is running in Electron and Chromium, instead of Node, you might run i
 - If a native module does not work, you may need to [rebuild it for the right version of Electron](http://electron.atom.io/docs/v0.36.0/tutorial/using-native-node-modules/)
 - If you want to close or exit after writing to stderr/stdout, you should do so after a callback: `outStream.write(buf, callback)`
 - `setTimeout`, `setInterval` and related functions are shimmed for better compatibility with [Node.js `timers`](https://nodejs.org/api/timers.html)
+- `process.stdin` does not work in Windows shells, see [this Electron issue](https://github.com/electron/electron/issues/4218)
 
 ## Roadmap / Contributing
 
