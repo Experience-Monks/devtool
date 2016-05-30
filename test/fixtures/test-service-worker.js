@@ -1,2 +1,2 @@
 
-navigator.serviceWorker.register('service-worker.js');
+navigator.serviceWorker.register('test/fixtures/service-worker.js');
