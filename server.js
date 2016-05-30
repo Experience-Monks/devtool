@@ -68,6 +68,8 @@ app.on('quit', function () {
 });
 
 app.on('ready', function () {
+  electron.protocol.registerServiceWorkerSchemes(['file:']);
+
   // Get starting HTML file
   var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
   var customHtml = false; // if we should watch it as well
