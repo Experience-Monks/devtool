@@ -41,9 +41,9 @@ test('respect NODE_PATH for resolving requires', function (t) {
 setup('module.parent from main', 'no-parent.js', 'no-parent');
 setup('module.parent from other', 'no-parent-other.js', 'parent');
 
-setup('test --config=file v8 flags', 'harmony-default-parameters.js',
-  'baz',
-  [ '--js-flags=--harmony-default-parameters', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
+setup('test --config=file v8 flags', 'harmony_object_values_entries.js',
+  '[["foo","bar"]]',
+  [ '--js-flags=--harmony_object_values_entries', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
 
 // May fail since Chrome now supports almost 100% ES6 ...
 // setup('js-flags from CLI', 'harmony-proxies.js', 'object\n', [

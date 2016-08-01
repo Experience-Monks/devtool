@@ -1,7 +1,7 @@
 {
   "v8": {
     "flags": [
-      "--harmony-default-parameters"
+      "--harmony_object_values_entries"
     ]
   }
 }
