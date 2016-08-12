@@ -46,6 +46,7 @@ Options:
   --config                a path to .devtoolrc config file
   --verbose               verbose Chromium logging
   --version, -v           log versions of underlying tools
+  --require, -r           require path(s) before running entry
   --browser-field, --bf   resolve using "browser" field
   --no-source-maps,
                 --no-sm   disable source map generation
@@ -72,6 +73,9 @@ devtool writer.js < README.md
 
 # pass clean arg list to app.js
 devtool app.js --watch -- entry
+
+# register with babel before requiring our app
+devtool -r babel-register app.js
 ```
 
 You can specify `--watch` multiple times to watch different files/globs. If a custom `--index` is passed, it will also be watched for changes. 
