@@ -1,6 +1,6 @@
 // spawns devtool with given CLI arguments
 const spawn = require('child_process').spawn;
-const electron = require('electron-prebuilt');
+const electron = require('electron');
 const through = require('through2');
 const path = require('path');
 const parseArgs = require('../lib/parse-args').fromArray;
