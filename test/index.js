@@ -43,7 +43,7 @@ setup('module.parent from other', 'no-parent-other.js', 'parent');
 
 setup('test --config=file v8 flags', 'harmony_object_values_entries.js',
   '[["foo","bar"]]',
-  [ '--js-flags=--harmony_object_values_entries', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
+    [ '--js-flags=--harmony', '--config', path.resolve(__dirname, 'fixtures', 'harmony.json') ]);
 
 // May fail since Chrome now supports almost 100% ES6 ...
 // setup('js-flags from CLI', 'harmony-proxies.js', 'object\n', [
@@ -90,7 +90,7 @@ test('require.resolve entry file', function (t) {
 setup('process.cwd()', 'cwd.js', process.cwd(), [ ]);
 setup('require.main', 'main.js', 'is main');
 setup('browser field resolution enabled', 'browser-field.js', 'browser', [ '--browser-field' ]);
-setup('browser field resolution enabled', 'no-browser-globals.js', JSON.stringify({
+setup('browser globals undefined', 'no-browser-globals.js', JSON.stringify({
   window: 'undefined',
   document: 'undefined',
   navigator: 'undefined'
