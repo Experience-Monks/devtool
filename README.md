@@ -2,6 +2,14 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
+:warning: 
+
+**Update:** This tool is mostly obsolete as much of the philosophy has been brought into Node/DevTool core, see [here](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27) for details.
+
+If you wish to take over maintenance of this project, please ping me on twitter: [@mattdesl](https://twitter.com/mattdesl).
+
+---
+
 Runs Node.js programs inside Chrome DevTools (using [Electron](https://github.com/atom/electron/)).
 
 ```sh
