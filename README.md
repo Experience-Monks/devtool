@@ -32,6 +32,10 @@ Install globally with `npm`.
 ```sh
 npm install devtool -g
 ```
+If you are in China, you may install by this much more fast:
+```sh
+ELECTRON_MIRROR='https://npm.taobao.org/mirrors/electron/' npm install devtool -g --registry=https://registry.npm.taobao.org
+```
 
 ## Usage
 
