@@ -89,9 +89,15 @@ app.on('ready', function () {
     if (file === mainIndexURL) {
       file = htmlFile;
     } else if (file.indexOf('file://') === 0) {
-      // All other assets should be relative to the user's cwd
+      // Relative paths in the page are requested relative to the devtools
+      // install directory. Adjust these paths to be relative to the cwd instead.
+      // Absolute paths will not be relative to the devtools install directory
+      // and therefore begin with a `..`. These paths can be preserved.
       file = file.substring(7);
-      file = path.resolve(cwd, path.relative(__dirname, file));
+      var relativePath = path.relative(__dirname, file);
+      if (relativePath.indexOf('..') !== 0) {
+        file = path.resolve(cwd, relativeFile);
+      }
     }
 
     fs.readFile(file, function (err, data) {
