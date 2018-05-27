@@ -110,6 +110,9 @@ app.on('ready', function () {
   mainWindow = createMainWindow(entryFile, mainIndexURL, argv, function () {
     // When we first launch, ensure the quit flag is set to the user args
     globals.quit = argv.quit;
+
+    // Focus the devtools.
+    app.focus();
   });
 
   // De-reference for GC
